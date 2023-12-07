@@ -1,4 +1,4 @@
-const { SafeAreaView, Text } = require("react-native");
+import { View, SafeAreaView, Text } from "react-native";
 
 const Home = () => {
   return (
