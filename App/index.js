@@ -1,6 +1,6 @@
 import { View, SafeAreaView, Text } from "react-native";
 
-import { COLORS } from "../constants/theme";
+import { COLORS, FONT, SIZES } from "../constants/theme";
 import { Welcome } from "../components";
 
 const Home = () => {
