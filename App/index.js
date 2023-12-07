@@ -1,9 +1,13 @@
 import { View, SafeAreaView, Text } from "react-native";
 
+import { COLORS } from "../constants/theme";
+import { Welcome } from "../components";
+
 const Home = () => {
   return (
-    <SafeAreaView>
-      <Text>FORMINITY</Text>
+    // safe area view for ios
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+      <Welcome />
     </SafeAreaView>
   );
 };
