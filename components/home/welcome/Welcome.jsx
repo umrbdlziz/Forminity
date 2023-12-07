@@ -7,9 +7,12 @@ const Welcome = () => {
   return (
     <View style={styles.header}>
       <Text style={styles.forminity}>FORMINITY</Text>
-      <View>
-        <View>
-          <TextInput placeholder="What are you looking for?" />
+      <View style={styles.searchContainer}>
+        <View style={styles.searchWrapper}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="What are you looking for?"
+          />
         </View>
       </View>
     </View>

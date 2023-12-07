@@ -17,6 +17,25 @@ const style = StyleSheet.create({
     // fontWeight: "700",
     // textAlign: "left",
   },
+  searchContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: SIZES.large,
+    height: 50,
+  },
+  searchWrapper: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+    marginRight: SIZES.small,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: SIZES.medium,
+    height: "100%",
+  },
+  searchInput: {
+    fontFamily: FONT.subtitle,
+  },
 });
 
 export default style;
