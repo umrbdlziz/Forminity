@@ -1,9 +1,8 @@
 const COLORS = {
-  primary: "#fffbf5",
-  secondary: "#c3acd0",
-  tertiary: "#8e8ffa",
+  primary: "#fff",
+  secondary: "#8e8ffa",
 
-  background: "#f7efe5",
+  background: "#f7f7f7",
 
   primaryText: "#343232",
   secondaryTextIcon: "#514d4c",
@@ -12,8 +11,10 @@ const COLORS = {
 const FONT = {
   h1: "Rajdhani-Bold",
   h2: "AlegreyaSans-Bold",
-  subtitle: "Roboto-Italic",
+  subtitle: "Roboto-LightItalic",
   text: "Telex-Regular",
+
+  splashscreen: "Allura-Regular",
 };
 
 const SIZES = {
