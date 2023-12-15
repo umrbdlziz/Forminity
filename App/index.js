@@ -5,8 +5,14 @@ import { Welcome } from "../components";
 
 const Home = () => {
   return (
-    // safe area view for ios
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.background,
+        width: "100%",
+        overflow: "hidden",
+      }}
+    >
       <Welcome />
     </SafeAreaView>
   );
