@@ -18,6 +18,7 @@ const App = () => {
     "Roboto-LightItalic": require("../assets/fonts/Roboto-LightItalic.ttf"),
     "Telex-Regular": require("../assets/fonts/Telex-Regular.ttf"),
     "Allura-Regular": require("../assets/fonts/Allura-Regular.ttf"),
+    "Montserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
   });
   useEffect(() => {
     setTimeout(() => {

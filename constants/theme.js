@@ -15,6 +15,7 @@ const FONT = {
   text: "Telex-Regular",
 
   splashscreen: "Allura-Regular",
+  btn: "Montserrat-SemiBold",
 };
 
 const SIZES = {
