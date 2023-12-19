@@ -36,7 +36,12 @@ const LoginPage = () => {
         />
       </View>
       <View style={style.BtnContainer}>
-        <TouchableOpacity style={[globalStyle.Btn, globalStyle.shadow]}>
+        <TouchableOpacity
+          style={[globalStyle.Btn, globalStyle.shadow]}
+          onPress={() =>
+            navigation.navigate("BottomTabsRoot", { screen: "HomePage" })
+          }
+        >
           <Text style={globalStyle.textBtn}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity>

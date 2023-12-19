@@ -6,6 +6,7 @@ import { Text, View } from "react-native";
 import { useFonts } from "expo-font";
 
 import { HomePage, SplashScreen, LoginPage } from "../screens";
+import BottomTabsRoot from "./bottomTab";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,12 +35,12 @@ const App = () => {
     <>
       <NavigationContainer>
         {hideSplashScreen ? (
-          <Stack.Navigator>
-            <Stack.Screen
-              name="LoginPage"
-              component={LoginPage}
-              options={{ headerShown: false }}
-            />
+          <Stack.Navigator
+            initialRouteName="LoginPage"
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="LoginPage" component={LoginPage} />
+            <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
           </Stack.Navigator>
         ) : (
           <SplashScreen />

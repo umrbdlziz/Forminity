@@ -7,6 +7,11 @@ import offUpload from "../assets/icons/offUpload.png";
 import loginIcon from "../assets/icons/loginIcon.png";
 import username from "../assets/icons/username.png";
 import password from "../assets/icons/password.png";
+import onHome from "../assets/icons/onHome.png";
+import onLeaderboard from "../assets/icons/onLeaderboard.png";
+import onPoint from "../assets/icons/onPoint.png";
+import onProfile from "../assets/icons/onProfile.png";
+import onUpload from "../assets/icons/onUpload.png";
 
 export default {
   search,
@@ -15,6 +20,11 @@ export default {
   offPoint,
   offProfile,
   offUpload,
+  onHome,
+  onLeaderboard,
+  onPoint,
+  onProfile,
+  onUpload,
   loginIcon,
   username,
   password,
