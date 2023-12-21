@@ -2,15 +2,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useState } from "react";
 
-import { COLORS, icons } from "../constants";
+import { COLORS, icons } from "../../constants";
 import {
   HomePage,
   LeaderboardPage,
   PointPage,
   ProfilePage,
   UploadPage,
-} from "../screens";
-import BottomTabIcon from "../components/common/bottomTabIcon";
+} from "../../screens";
+import BottomTabIcon from "./BottomTabIcon";
 
 const Tab = createBottomTabNavigator();
 function BottomTabsRoot({ navigation }) {
@@ -33,7 +33,7 @@ function BottomTabsRoot({ navigation }) {
       tabBar={({ state, description, navigation }) => {
         const activeIndex = state.index;
         return (
-          <View style={style.nav}>
+          <View style={style.navStyle}>
             {BottomTabItemsNormal.map((item, index) => {
               const isFocused = state.index === index;
               return (
@@ -88,7 +88,7 @@ function BottomTabsRoot({ navigation }) {
 export default BottomTabsRoot;
 
 const style = StyleSheet.create({
-  nav: {
+  navStyle: {
     backgroundColor: COLORS.background,
     borderColor: COLORS.secondaryTextIcon,
     height: 45,

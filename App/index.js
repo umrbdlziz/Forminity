@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { useFonts } from "expo-font";
 
-import { HomePage, SplashScreen, LoginPage } from "../screens";
-import BottomTabsRoot from "./bottomTab";
+import { SplashScreen, LoginPage } from "../screens";
+import { BottomTabsRoot } from "../components";
 
 const Stack = createNativeStackNavigator();
 

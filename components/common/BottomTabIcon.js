@@ -4,8 +4,8 @@ import { StyleSheet, View } from "react-native";
 
 const BottomTabIcon = ({ currentIcon }) => {
   return (
-    <View style={styles.icon}>
-      <Image source={currentIcon} />
+    <View>
+      <Image source={currentIcon} style={styles.icon} />
     </View>
   );
 };
@@ -13,5 +13,8 @@ const BottomTabIcon = ({ currentIcon }) => {
 export default BottomTabIcon;
 
 const styles = StyleSheet.create({
-  icon: {},
+  icon: {
+    width: 25,
+    height: 25,
+  },
 });
