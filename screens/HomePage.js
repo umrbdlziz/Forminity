@@ -2,7 +2,11 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native";
 
-import { Header, SearchBarContainer } from "../components";
+import {
+  CategoryTabContainer,
+  Header,
+  SearchBarContainer,
+} from "../components";
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -11,6 +15,7 @@ const HomePage = () => {
     <View>
       <Header headerText={"FORMINITY"} />
       <SearchBarContainer />
+      <CategoryTabContainer />
     </View>
   );
 };
