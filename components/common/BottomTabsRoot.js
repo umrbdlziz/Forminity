@@ -30,6 +30,7 @@ function BottomTabsRoot({ navigation }) {
   ]);
   return (
     <Tab.Navigator
+      tabBarHideOnKeyboard={true}
       tabBar={({ state, description, navigation }) => {
         const activeIndex = state.index;
         return (
@@ -89,7 +90,7 @@ export default BottomTabsRoot;
 
 const style = StyleSheet.create({
   navStyle: {
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.primary,
     borderColor: COLORS.secondaryTextIcon,
     height: 45,
     display: "flex",

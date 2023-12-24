@@ -15,8 +15,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.primary,
     borderRadius: 10,
-    paddingVertical: 6,
+    justifyContent: "center",
     paddingHorizontal: 8,
+    height: 30,
+    // paddingVertical: 6,
   },
   text: {
     color: COLORS.primaryText,

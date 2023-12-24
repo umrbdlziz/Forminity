@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 import {
+  CardContainer,
   CategoryTabContainer,
   Header,
   SearchBarContainer,
@@ -12,12 +13,19 @@ const HomePage = () => {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
       <Header headerText={"FORMINITY"} />
       <SearchBarContainer />
       <CategoryTabContainer />
-    </View>
+      <CardContainer />
+    </SafeAreaView>
   );
 };
 
 export default HomePage;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

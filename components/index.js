@@ -4,6 +4,8 @@ import Header from "./home/Header";
 import SearchBarContainer from "./home/SearchBarContainer";
 import CategoryTabContainer from "./home/CategoryTabContainer";
 import CategoryButton from "./home/CategoryButton";
+import CardContainer from "./home/CardContainer";
+import Cards from "./home/Cards";
 
 export {
   BottomTabsRoot,
@@ -12,4 +14,6 @@ export {
   SearchBarContainer,
   CategoryTabContainer,
   CategoryButton,
+  CardContainer,
+  Cards,
 };

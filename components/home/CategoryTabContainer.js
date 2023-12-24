@@ -6,9 +6,10 @@ import { CategoryButton } from "../../components";
 const CategoryTabContainer = () => {
   return (
     <ScrollView
+      style={styles.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.container}
+      contentContainerStyle={styles.scrollviewcontainer}
     >
       <CategoryButton title={"All"} />
       <CategoryButton title={"Sport"} />
@@ -24,8 +25,9 @@ export default CategoryTabContainer;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
+    maxHeight: 50,
+  },
+  scrollviewcontainer: {
     gap: 15,
     paddingHorizontal: 15,
     paddingVertical: 10,
