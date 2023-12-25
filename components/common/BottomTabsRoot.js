@@ -36,7 +36,7 @@ function BottomTabsRoot({ navigation }) {
         return (
           <View style={style.navStyle}>
             {BottomTabItemsNormal.map((item, index) => {
-              const isFocused = state.index === index;
+              // const isFocused = state.index === index;
               return (
                 <Pressable
                   key={index}
@@ -97,7 +97,5 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingLeft: 30,
-    paddingRight: 30,
   },
 });
