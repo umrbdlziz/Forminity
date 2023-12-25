@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
+import { Header } from "../components";
+
 const LeaderboardPage = () => {
   return (
     <View>
-      <Text>LeaderboardPage</Text>
+      <Header headerText={"LEADERBOARD"} />
     </View>
   );
 };
