@@ -1,24 +1,27 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 
 import { CategoryButton } from "../../components";
 
 const CategoryTabContainer = () => {
+  const DATA = [
+    { id: "1", title: "All" },
+    { id: "2", title: "Sport" },
+    { id: "3", title: "Psychology" },
+    { id: "4", title: "Education" },
+    { id: "5", title: "Finance" },
+    { id: "6", title: "Health" },
+    { id: "7", title: "Technology" },
+  ];
   return (
-    <ScrollView
+    <FlatList
+      data={DATA}
+      renderItem={({ item }) => <CategoryButton title={item.title} />}
       style={styles.container}
-      horizontal={true}
-      showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.scrollviewcontainer}
-    >
-      <CategoryButton title={"All"} />
-      <CategoryButton title={"Sport"} />
-      <CategoryButton title={"Psychology"} />
-      <CategoryButton title={"Education"} />
-      <CategoryButton title={"Finance"} />
-      <CategoryButton title={"Health"} />
-      <CategoryButton title={"Technology"} />
-    </ScrollView>
+      showsHorizontalScrollIndicator={false}
+      horizontal={true}
+    />
   );
 };
 export default CategoryTabContainer;

@@ -1,53 +1,24 @@
 import React from "react";
-import { ScrollView, StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 
 import { Cards } from "../../components";
+import DATA from "../common/DATA";
 
 const CardContainer = () => {
   return (
-    <ScrollView
+    <FlatList
+      data={DATA}
+      renderItem={({ item }) => (
+        <Cards
+          title={item.title}
+          desc={item.desc}
+          qNum={item.qNum}
+          category={item.category}
+        />
+      )}
       style={styles.container}
       contentContainerStyle={styles.scrollview}
-    >
-      <Cards
-        title={"SOAL SELIDIK MENGENAI PENBANGUNAN BERSEPADU NEGARA"}
-        desc={
-          "Suvey ini mengandungi 3 bahagian iaitu bahagian A, B dan C mengenai demografi responden dan minat terhadap majalah yang berkaitan dengan XXXL"
-        }
-        qNum={50}
-        category={"Psychology"}
-      />
-      <Cards
-        title={"SOAL SELIDIK MENGENAI PENBANGUNAN BERSEPADU NEGARA"}
-        desc={"Suvey ini majalah yang berkaitan dengan XXXL"}
-        qNum={30}
-        category={"Psychology"}
-      />
-      <Cards
-        title={"SOAL SELIDIK MENGENAI PENBANGUNAN BERSEPADU NEGARA"}
-        desc={"Suvey ini majalah yang berkaitan dengan XXXL"}
-        qNum={12}
-        category={"Health"}
-      />
-      <Cards
-        title={"SOAL SELIDIK ADAT RESAM ETNIK DARI PELBAGAI KAUM DI MALAYSIA"}
-        desc={"Suvey ini majalah yang berkaitan dengan XXXL"}
-        qNum={5}
-        category={"Sport"}
-      />
-      <Cards
-        title={"DIGITAL SAFETY CAMPAIGN"}
-        desc={"Suvey ini majalah yang berkaitan dengan XXXL"}
-        qNum={7}
-        category={"Education"}
-      />
-      <Cards
-        title={"DIGITAL SAFETY CAMPAIGN"}
-        desc={"Suvey ini majalah yang berkaitan dengan XXXL"}
-        qNum={20}
-        category={"Technology"}
-      />
-    </ScrollView>
+    />
   );
 };
 export default CardContainer;
