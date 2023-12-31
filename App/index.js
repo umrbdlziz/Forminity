@@ -1,10 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
-import { SplashScreen, LoginPage } from "../screens";
+import { SplashScreen, LoginPage, UploadPage } from "../screens";
 import { BottomTabsRoot } from "../components";
 
 const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ const App = () => {
     "Telex-Regular": require("../assets/fonts/Telex-Regular.ttf"),
     "Allura-Regular": require("../assets/fonts/Allura-Regular.ttf"),
     "Montserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
+    "Inter-Light": require("../assets/fonts/Inter-Light.ttf"),
   });
   useEffect(() => {
     setTimeout(() => {
@@ -31,7 +33,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <NavigationContainer>
         {hideSplashScreen ? (
           <Stack.Navigator
@@ -40,12 +42,13 @@ const App = () => {
           >
             <Stack.Screen name="LoginPage" component={LoginPage} />
             <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
+            <Stack.Screen name="UploadPage" component={UploadPage} />
           </Stack.Navigator>
         ) : (
           <SplashScreen />
         )}
       </NavigationContainer>
-    </>
+    </SafeAreaProvider>
   );
 };
 

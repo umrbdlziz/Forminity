@@ -6,6 +6,9 @@ import CategoryTabContainer from "./home/CategoryTabContainer";
 import CategoryButton from "./home/CategoryButton";
 import CardContainer from "./home/CardContainer";
 import Cards from "./home/Cards";
+import BuilderQuestion from "./upload/BuilderQuestion";
+import InputCreator from "./upload/InputCreator";
+import Priview from "./upload/Priview";
 
 export {
   BottomTabsRoot,
@@ -16,4 +19,7 @@ export {
   CategoryButton,
   CardContainer,
   Cards,
+  BuilderQuestion,
+  InputCreator,
+  Priview,
 };

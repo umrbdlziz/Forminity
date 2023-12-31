@@ -1,11 +1,14 @@
 const COLORS = {
   primary: "#fff",
   secondary: "#8e8ffa",
+  tertiary: "#B8B8B8",
 
   background: "#f7f7f7",
 
   primaryText: "#343232",
   secondaryTextIcon: "#514d4c",
+
+  err: "#F0190B",
 };
 
 const FONT = {
@@ -13,6 +16,7 @@ const FONT = {
   h2: "AlegreyaSans-Bold",
   subtitle: "Roboto-LightItalic",
   text: "Telex-Regular",
+  placeholder: "Inter-Light",
 
   splashscreen: "Allura-Regular",
   btn: "Montserrat-SemiBold",
