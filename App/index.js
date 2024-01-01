@@ -1,6 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
@@ -34,20 +36,22 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        {hideSplashScreen ? (
-          <Stack.Navigator
-            initialRouteName="LoginPage"
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen name="LoginPage" component={LoginPage} />
-            <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
-            <Stack.Screen name="UploadPage" component={UploadPage} />
-          </Stack.Navigator>
-        ) : (
-          <SplashScreen />
-        )}
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          {hideSplashScreen ? (
+            <Stack.Navigator
+              initialRouteName="LoginPage"
+              screenOptions={{ headerShown: false }}
+            >
+              <Stack.Screen name="LoginPage" component={LoginPage} />
+              <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
+              <Stack.Screen name="UploadPage" component={UploadPage} />
+            </Stack.Navigator>
+          ) : (
+            <SplashScreen />
+          )}
+        </NavigationContainer>
+      </Provider>
     </SafeAreaProvider>
   );
 };

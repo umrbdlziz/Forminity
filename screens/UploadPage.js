@@ -11,8 +11,8 @@ const TopTab = createMaterialTopTabNavigator();
 const UploadPage = () => {
   const navigation = useNavigation();
   return (
-    <View>
-      <Header headerText={"UPLOAD"} />
+    <View style={{ flex: 1 }}>
+      {/* <Header headerText={"UPLOAD"} /> */}
       <BuilderQuestion />
     </View>
   );
