@@ -6,14 +6,24 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { BuilderQuestion, Header, InputCreator, Priview } from "../components";
 import { COLORS, FONT } from "../constants";
 
-const TopTab = createMaterialTopTabNavigator();
-
 const UploadPage = () => {
+  const Tab = createMaterialTopTabNavigator();
   const navigation = useNavigation();
   return (
-    <View style={{ flex: 1 }}>
-      {/* <Header headerText={"UPLOAD"} /> */}
-      <BuilderQuestion />
+    <View style={styles.uploadPage}>
+      <Header headerText={"UPLOAD"} />
+      <Tab.Navigator
+        screenOptions={{
+          tabBarLabelStyle: styles.tabBarLabelStyle,
+          tabBarStyle: styles.tabBarStyle,
+          tabBarActiveTintColor: COLORS.primaryText,
+          tabBarIndicatorStyle: { backgroundColor: COLORS.secondary },
+        }}
+      >
+        <Tab.Screen name="Builder" component={BuilderQuestion} />
+        <Tab.Screen name="Input Creator" component={InputCreator} />
+        <Tab.Screen name="Priview" component={Priview} />
+      </Tab.Navigator>
     </View>
   );
 };
@@ -23,8 +33,13 @@ const styles = StyleSheet.create({
   uploadPage: {
     backgroundColor: COLORS.background,
     flex: 1,
-    alignItems: "center",
-    overflow: "hidden",
-    width: "100%",
+  },
+  tabBarLabelStyle: {
+    fontFamily: FONT.text,
+    fontSize: 12,
+  },
+  tabBarStyle: {
+    backgroundColor: COLORS.primary,
+    marginBottom: 10,
   },
 });

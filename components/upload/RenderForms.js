@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     gap: 40,
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 25,
   },
   questionContainer: {
     display: "flex",
