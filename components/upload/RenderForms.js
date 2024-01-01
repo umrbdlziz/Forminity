@@ -1,20 +1,13 @@
-import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  FlatList,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 
-import { formDeleted } from "../../redux/formSlice";
+import DeleteBtn from "./DeleteBtn";
+import EditBtn from "./EditBtn";
 import { FONT, COLORS } from "../../constants";
-import globalStyle from "../../App/general.style";
 
 const RenderForms = () => {
-  const dispatch = useDispatch();
   const forms = useSelector((state) => state.form);
+
   const renderForms = ({ item }) => {
     return (
       <View>
@@ -27,34 +20,13 @@ const RenderForms = () => {
               <Text style={styles.option}>short-answer text</Text>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.buttonStyle,
-                  globalStyle.shadow,
-                  { borderColor: COLORS.secondaryTextIcon },
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.titleStyle,
-                    { color: COLORS.secondaryTextIcon },
-                  ]}
-                >
-                  edit
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.buttonStyle,
-                  globalStyle.shadow,
-                  { borderColor: COLORS.err },
-                ]}
-                onPress={() => dispatch(formDeleted(item.id))}
-              >
-                <Text style={[styles.titleStyle, { color: COLORS.err }]}>
-                  delete
-                </Text>
-              </TouchableOpacity>
+              <EditBtn
+                type={item.type}
+                id={item.id}
+                title={item.title}
+                options={item.options}
+              />
+              <DeleteBtn itemId={item.id} />
             </View>
           </View>
         ) : item.type === "multipleAnswer" ||
@@ -70,34 +42,13 @@ const RenderForms = () => {
               ))}
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.buttonStyle,
-                  globalStyle.shadow,
-                  { borderColor: COLORS.secondaryTextIcon },
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.titleStyle,
-                    { color: COLORS.secondaryTextIcon },
-                  ]}
-                >
-                  edit
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.buttonStyle,
-                  globalStyle.shadow,
-                  { borderColor: COLORS.err },
-                ]}
-                onPress={() => dispatch(formDeleted(item.id))}
-              >
-                <Text style={[styles.titleStyle, { color: COLORS.err }]}>
-                  delete
-                </Text>
-              </TouchableOpacity>
+              <EditBtn
+                type={item.type}
+                id={item.id}
+                title={item.title}
+                options={item.options}
+              />
+              <DeleteBtn itemId={item.id} />
             </View>
           </View>
         ) : (
@@ -149,18 +100,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     marginVertical: 5,
-  },
-  buttonStyle: {
-    backgroundColor: COLORS.primary,
-    borderWidth: 1.5,
-    borderRadius: 10,
-    width: 60,
-    height: 30,
-    justifyContent: "center",
-  },
-  titleStyle: {
-    fontFamily: FONT.btn,
-    fontSize: 10,
-    textAlign: "center",
   },
 });
