@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Divider } from "@rneui/themed";
+import { Divider } from "react-native-paper";
+// import { Divider } from "@rneui/themed";
 import { View, Text, StyleSheet } from "react-native";
 
 import { FONT, COLORS } from "../../constants";
@@ -9,11 +9,22 @@ import RenderForms from "./RenderForms";
 const BuilderQuestion = () => {
   return (
     <View style={styles.container}>
-      <Divider inset={true} insetType="middle" width={1.5} />
-
+      {/* <Divider inset={true} insetType="middle" width={1.5} /> */}
+      <Divider
+        style={{
+          paddingVertical: 0.5,
+          backgroundColor: COLORS.tertiary,
+        }}
+      />
       <RenderForms />
+      <Divider
+        style={{
+          paddingVertical: 0.5,
+          backgroundColor: COLORS.tertiary,
+        }}
+      />
 
-      <Divider inset={true} insetType="middle" width={1.5} />
+      {/* <Divider inset={true} insetType="middle" width={1.5} /> */}
 
       <View style={styles.addContainer}>
         <AddButton buttonType={"shortAnswer"} />
