@@ -2,8 +2,8 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { COLORS, FONT } from "../../constants";
-import globalStyle from "../../App/general.style";
+import { COLORS, FONT } from "../../../constants";
+import globalStyle from "../../../App/general.style";
 
 const EditBtn = ({ type, id, title, options }) => {
   const navigation = useNavigation();

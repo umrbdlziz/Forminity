@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux";
 
-import DeleteBtn from "./DeleteBtn";
-import EditBtn from "./EditBtn";
+import { DeleteBtn, EditBtn } from "./Btn";
 import { FONT, COLORS } from "../../constants";
 
 const RenderForms = () => {

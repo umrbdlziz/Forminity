@@ -2,9 +2,9 @@ import { Divider } from "react-native-paper";
 // import { Divider } from "@rneui/themed";
 import { View, Text, StyleSheet } from "react-native";
 
-import { FONT, COLORS } from "../../constants";
+import { FONT, COLORS } from "../../../constants";
 import AddButton from "./AddButton";
-import RenderForms from "./RenderForms";
+import RenderForms from "../RenderForms";
 
 const BuilderQuestion = () => {
   return (

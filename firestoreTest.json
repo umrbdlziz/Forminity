@@ -1,0 +1,71 @@
+{
+  "users": {
+    "user123": { "form": {} },
+    "user456": {
+      "form": {
+        "form123": {
+          "info": {
+            "name": "Form 123",
+            "description": "This is a form"
+          },
+          "item": {
+            "item123": {
+              "title": "Item 123",
+              "type": "shortAnswer"
+            }
+          },
+          "responses": {}
+        },
+        "form456": {
+          "info": {
+            "name": "Form 456",
+            "description": "This is a form"
+          },
+          "item": {
+            "item456": {
+              "title": "Item 456",
+              "type": "multipleAnswer",
+              "options": ["Option 1", "Option 2", "Option 3"]
+            },
+            "item789": {
+              "title": "Item 789",
+              "type": "checkbox",
+              "options": [
+                "Option 1",
+                "Option 2",
+                "Option 3",
+                "Option 4",
+                "Option 5"
+              ]
+            },
+            "item101112": {
+              "title": "Item 101112",
+              "type": "dropdown",
+              "options": ["Option 3", "Option 4", "Option 5"]
+            }
+          },
+          "responses": {
+            "response123": {
+              "userId": "user123",
+              "submitTime": "2019-01-01T00:00:00.000Z",
+              "answers": {
+                "item456": "Option 1",
+                "item789": "Option 3",
+                "item101112": "Option 5"
+              }
+            },
+            "response456": {
+              "userId": "user934",
+              "submitTime": "2019-01-01T00:00:00.000Z",
+              "answers": {
+                "item456": "Option 2",
+                "item789": ["Option 3", "Option 4"],
+                "item101112": ["Option 5"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

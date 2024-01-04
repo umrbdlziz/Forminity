@@ -11,9 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Input } from "@rneui/themed";
 
-import { COLORS, FONT } from "../../constants";
-import RenderForms from "./RenderForms";
-import { formEdited } from "../../redux/formSlice";
+import { COLORS, FONT } from "../../../constants";
+import RenderForms from "../RenderForms";
+import { formEdited } from "../../../redux/formSlice";
 
 const InputCreator = () => {
   const navigation = useNavigation();

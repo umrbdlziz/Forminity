@@ -12,6 +12,24 @@ import { useSelector } from "react-redux";
 import { RadioButton } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 
+import { collection, addDoc } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDrzOY7I1fzL6cCHzQ9xPN5qtjatZDVqcI",
+  authDomain: "firstproject-408306.firebaseapp.com",
+  projectId: "firstproject-408306",
+  storageBucket: "firstproject-408306.appspot.com",
+  messagingSenderId: "525543077982",
+  appId: "1:525543077982:web:f3a4cc0579cf99cfc4dccf",
+  measurementId: "G-YHLJ498C8M",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const CheckboxAnswer = ({ options, onChange, value }) => {
   return (
     <View>
@@ -72,13 +90,27 @@ const DropdownAnswer = ({ options, onChange, value }) => {
   );
 };
 
-export default function Priview() {
+export default function Preview() {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({});
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    console.log(currForms);
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        form: {
+          currForms,
+        },
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
   const currForms = useSelector((state) => state.form);
   const renderForms = ({ item }) => {
     return (
@@ -149,7 +181,7 @@ export default function Priview() {
                 value={value}
               />
             )}
-            name={item.id}
+            name={item.title}
           />
         )}
       </>
@@ -166,7 +198,7 @@ export default function Priview() {
         style={styles.container}
         contentContainerStyle={styles.scrollview}
       />
-
+      {console.log(currForms)}
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );

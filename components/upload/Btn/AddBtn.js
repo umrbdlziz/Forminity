@@ -2,9 +2,9 @@ import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { useDispatch } from "react-redux";
 
-import { formAdded } from "../../redux/formSlice";
-import { COLORS, FONT } from "../../constants";
-import globalStyle from "../../App/general.style";
+import { formAdded } from "../../../redux/formSlice";
+import { COLORS, FONT } from "../../../constants";
+import globalStyle from "../../../App/general.style";
 
 const AddButton = ({ buttonType }) => {
   const dispatch = useDispatch();

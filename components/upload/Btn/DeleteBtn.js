@@ -2,9 +2,9 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 
-import { COLORS, FONT } from "../../constants";
-import { formDeleted } from "../../redux/formSlice";
-import globalStyle from "../../App/general.style";
+import { COLORS, FONT } from "../../../constants";
+import { formDeleted } from "../../../redux/formSlice";
+import globalStyle from "../../../App/general.style";
 
 const DeleteBtn = ({ itemId }) => {
   const dispatch = useDispatch();
