@@ -1,15 +1,13 @@
 import { Divider } from "react-native-paper";
-// import { Divider } from "@rneui/themed";
 import { View, Text, StyleSheet } from "react-native";
 
 import { FONT, COLORS } from "../../../constants";
-import AddButton from "./AddButton";
+import { AddBtn } from "../Btn";
 import RenderForms from "../RenderForms";
 
 const BuilderQuestion = () => {
   return (
     <View style={styles.container}>
-      {/* <Divider inset={true} insetType="middle" width={1.5} /> */}
       <Divider
         style={{
           paddingVertical: 0.5,
@@ -24,13 +22,11 @@ const BuilderQuestion = () => {
         }}
       />
 
-      {/* <Divider inset={true} insetType="middle" width={1.5} /> */}
-
       <View style={styles.addContainer}>
-        <AddButton buttonType={"shortAnswer"} />
-        <AddButton buttonType={"multipleAnswer"} />
-        <AddButton buttonType={"checkbox"} />
-        <AddButton buttonType={"dropdown"} />
+        <AddBtn buttonType={"shortAnswer"} />
+        <AddBtn buttonType={"multipleAnswer"} />
+        <AddBtn buttonType={"checkbox"} />
+        <AddBtn buttonType={"dropdown"} />
       </View>
     </View>
   );

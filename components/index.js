@@ -7,6 +7,7 @@ import CategoryButton from "./home/CategoryButton";
 import CardContainer from "./home/CardContainer";
 import Cards from "./home/Cards";
 import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
+import CreateBtn from "./upload/Btn/CreateBtn";
 
 export {
   BottomTabsRoot,
@@ -20,4 +21,5 @@ export {
   BuilderQuestion,
   InputCreator,
   Preview,
+  CreateBtn,
 };

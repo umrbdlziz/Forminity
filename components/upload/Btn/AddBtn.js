@@ -6,7 +6,7 @@ import { formAdded } from "../../../redux/formSlice";
 import { COLORS, FONT } from "../../../constants";
 import globalStyle from "../../../App/general.style";
 
-const AddButton = ({ buttonType }) => {
+const AddBtn = ({ buttonType }) => {
   const dispatch = useDispatch();
 
   return (
@@ -44,7 +44,7 @@ const AddButton = ({ buttonType }) => {
   );
 };
 
-export default AddButton;
+export default AddBtn;
 
 const styles = StyleSheet.create({
   addBtnContainer: {
