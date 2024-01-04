@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { CategoryButton } from "../../components";
+import CategoryButton from "../../components/home/CategoryButton";
 
 const CategoryTabContainer = () => {
   const DATA = [

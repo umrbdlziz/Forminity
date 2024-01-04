@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { Cards } from "../../components";
+import Cards from "../../components/home/Cards";
 import DATA from "../common/DATA";
 
 const CardContainer = () => {

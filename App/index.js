@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
 import { SplashScreen, LoginPage, UploadPage } from "../screens";
-import { BottomTabsRoot } from "../components";
+import BottomTabsRoot from "../components/common/BottomTabsRoot";
 
 const Stack = createNativeStackNavigator();
 
