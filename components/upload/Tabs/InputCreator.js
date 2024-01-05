@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Input } from "@rneui/themed";
 
 import { COLORS, FONT } from "../../../constants";
-import RenderForms from "../RenderForms";
 import { formEdited } from "../../../redux/formSlice";
 
 const InputCreator = () => {
@@ -44,7 +49,7 @@ const InputCreator = () => {
 
   return typeof route.params !== "undefined" &&
     typeof route.params.title !== "undefined" ? (
-    <View>
+    <ScrollView>
       <Input
         label="Question"
         labelStyle={styles.labelStyle}
@@ -80,14 +85,14 @@ const InputCreator = () => {
       <TouchableOpacity
         onPress={() => {
           dispatch(formEdited(currType, currId, currTitle, currOption));
-          navigation.navigate("UploadPage", {
+          navigation.navigate("UploadPage2", {
             screen: "Builder",
           });
         }}
       >
         <Text>Update Question</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   ) : (
     <View>
       <Text>No edit component</Text>

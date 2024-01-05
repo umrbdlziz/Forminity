@@ -15,6 +15,8 @@ import onUpload from "../assets/icons/onUpload.png";
 import created from "../assets/icons/created.png";
 import complete from "../assets/icons/complete.png";
 import createNew from "../assets/icons/createNew.png";
+import rightArrow from "../assets/icons/rightArrow.png";
+import close from "../assets/icons/close.png";
 
 export default {
   search,
@@ -34,4 +36,6 @@ export default {
   created,
   complete,
   createNew,
+  rightArrow,
+  close,
 };

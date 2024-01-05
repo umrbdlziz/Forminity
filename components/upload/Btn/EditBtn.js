@@ -12,7 +12,7 @@ const EditBtn = ({ type, id, title, options }) => {
     <TouchableOpacity
       style={[styles.buttonStyle, globalStyle.shadow]}
       onPress={() =>
-        navigation.navigate("UploadPage", {
+        navigation.navigate("UploadPage2", {
           screen: "Input Creator",
           params: { type: type, id: id, title: title, options: options },
         })
