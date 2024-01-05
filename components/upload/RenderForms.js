@@ -37,7 +37,7 @@ const RenderForms = () => {
             </View>
             <View style={styles.options}>
               {item.options.map((option) => (
-                <Text style={styles.option}>{option}</Text>
+                <Text style={styles.option}>{option.value}</Text>
               ))}
             </View>
             <View style={styles.buttonContainer}>

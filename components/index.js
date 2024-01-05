@@ -5,6 +5,7 @@ import CategoryTabContainer from "./home/CategoryTabContainer";
 import CardContainer from "./home/CardContainer";
 import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
 import CreateBtn from "./upload/Btn/CreateBtn";
+import DisplayCard from "./upload/Cards/DisplayCard";
 
 export {
   BottomTabIcon,
@@ -16,4 +17,5 @@ export {
   InputCreator,
   Preview,
   CreateBtn,
+  DisplayCard,
 };

@@ -1,9 +1,10 @@
 import SelectDropdown from "react-native-select-dropdown";
 
 export const DropdownAnswer = ({ options, onChange, value }) => {
+  const optionValues = options.map((option) => option.value);
   return (
     <SelectDropdown
-      data={options}
+      data={optionValues}
       onSelect={onChange}
       defaultButtonText={value ? value : "Select an option"}
       buttonStyle={{

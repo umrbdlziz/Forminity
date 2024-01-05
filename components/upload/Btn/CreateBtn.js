@@ -25,7 +25,11 @@ const CreateBtn = () => {
   const onCreate = async () => {
     try {
       for (const form of forms) {
-        const docRef = await addDoc(collection(db, "users/forms/items"), form);
+        if (form.options === undefined) {
+          form.options = [];
+        }
+
+        const docRef = await addDoc(collection(db, "users"), form);
         console.log("Document added with ID: ", docRef.id);
       }
     } catch (e) {

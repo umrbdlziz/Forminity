@@ -7,7 +7,7 @@ import store from "../redux/store";
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
-import { SplashScreen, LoginPage, UploadPage } from "../screens";
+import { SplashScreen, LoginPage, UploadPage, UploadPage2 } from "../screens";
 import BottomTabsRoot from "../components/common/BottomTabsRoot";
 
 const Stack = createNativeStackNavigator();
@@ -46,6 +46,7 @@ const App = () => {
               <Stack.Screen name="LoginPage" component={LoginPage} />
               <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
               <Stack.Screen name="UploadPage" component={UploadPage} />
+              <Stack.Screen name="UploadPage2" component={UploadPage2} />
             </Stack.Navigator>
           ) : (
             <SplashScreen />

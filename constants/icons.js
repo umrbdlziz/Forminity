@@ -12,6 +12,9 @@ import onLeaderboard from "../assets/icons/onLeaderboard.png";
 import onPoint from "../assets/icons/onPoint.png";
 import onProfile from "../assets/icons/onProfile.png";
 import onUpload from "../assets/icons/onUpload.png";
+import created from "../assets/icons/created.png";
+import complete from "../assets/icons/complete.png";
+import createNew from "../assets/icons/createNew.png";
 
 export default {
   search,
@@ -28,4 +31,7 @@ export default {
   loginIcon,
   username,
   password,
+  created,
+  complete,
+  createNew,
 };

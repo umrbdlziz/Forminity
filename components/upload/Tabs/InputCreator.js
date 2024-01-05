@@ -32,12 +32,12 @@ const InputCreator = () => {
 
   const handleOptionChange = (index, newValue) => {
     const newList = [...currOption];
-    newList[index] = newValue;
+    newList[index] = { value: newValue };
     setCurrOption(newList);
   };
 
   const handleOptionAdded = () => {
-    const newList = [...currOption, "newOption"];
+    const newList = [...currOption, { value: "newOption" }];
     setCurrOption(newList);
     dispatch(formEdited(currType, currId, currTitle, currOption));
   };
@@ -56,13 +56,13 @@ const InputCreator = () => {
           {currOption.map((temp, index) => (
             <View>
               <Input
-                value={currOption[index]}
+                value={temp.value}
                 onChangeText={(e) => handleOptionChange(index, e)}
               />
               <TouchableOpacity
                 onPress={() =>
                   setCurrOption(
-                    currOption.filter((e) => e !== currOption[index])
+                    currOption.filter((e) => e.value !== temp.value)
                   )
                 }
               >

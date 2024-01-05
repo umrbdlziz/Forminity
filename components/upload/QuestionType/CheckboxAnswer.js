@@ -6,18 +6,18 @@ export const CheckboxAnswer = ({ options, onChange, value }) => {
     <View>
       {options.map((option) => (
         <CheckBox
-          key={option}
-          title={option}
-          checked={value ? value.indexOf(option) !== -1 : false}
+          key={option.value}
+          title={option.value}
+          checked={value ? value.indexOf(option.value) !== -1 : false}
           onPress={() => {
             if (value) {
-              if (value.indexOf(option) !== -1) {
-                onChange(value.filter((v) => v !== option));
+              if (value.indexOf(option.value) !== -1) {
+                onChange(value.filter((v) => v !== option.value));
               } else {
-                onChange([...value, option]);
+                onChange([...value, option.value]);
               }
             } else {
-              onChange([option]);
+              onChange([option.value]);
             }
           }}
         />

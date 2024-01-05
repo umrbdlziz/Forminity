@@ -15,7 +15,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: 80,
+    paddingTop: 50,
     paddingBottom: 30,
     alignItems: "center",
   },

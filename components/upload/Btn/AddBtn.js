@@ -24,9 +24,15 @@ const AddBtn = ({ buttonType }) => {
           onPress={() =>
             dispatch(
               formAdded(buttonType, "What your Question", [
-                "option1",
-                "option2",
-                "option3",
+                {
+                  value: "option1",
+                },
+                {
+                  value: "option2",
+                },
+                {
+                  value: "option3",
+                },
               ])
             )
           }
