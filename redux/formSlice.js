@@ -35,7 +35,7 @@ export const formSlice = createSlice({
 
         if (toEdit) {
           toEdit.title = newTitle;
-          toEdit.options = newOptions;
+          type !== "shortAnswer" ? (toEdit.options = newOptions) : {};
         }
       },
       prepare: (type, id, newTitle, newOptions) => {

@@ -23,7 +23,7 @@ const AddBtn = ({ buttonType }) => {
           style={[styles.addBtnContainer, globalStyle.shadow]}
           onPress={() =>
             dispatch(
-              formAdded(buttonType, "What your Question", [
+              formAdded(buttonType, "What your Question?", [
                 {
                   value: "option1",
                 },

@@ -3,13 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  BuilderQuestion,
-  Header,
-  InputCreator,
-  Preview,
-  CreateBtn,
-} from "../components";
+import { BuilderQuestion, Header, InputCreator, Preview } from "../components";
 import { COLORS, FONT } from "../constants";
 
 const UploadPage2 = () => {
@@ -17,8 +11,6 @@ const UploadPage2 = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.uploadPage}>
-      <Header headerText={"UPLOAD"} />
-      <CreateBtn />
       <Tab.Navigator
         initialRouteName="Builder"
         screenOptions={{
@@ -41,6 +33,7 @@ const styles = StyleSheet.create({
   uploadPage: {
     backgroundColor: COLORS.background,
     flex: 1,
+    paddingTop: 40,
   },
   tabBarLabelStyle: {
     fontFamily: FONT.text,

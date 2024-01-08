@@ -4,7 +4,6 @@ import SearchBarContainer from "./home/SearchBarContainer";
 import CategoryTabContainer from "./home/CategoryTabContainer";
 import CardContainer from "./home/CardContainer";
 import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
-import CreateBtn from "./upload/Btn/CreateBtn";
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
 
@@ -17,7 +16,6 @@ export {
   BuilderQuestion,
   InputCreator,
   Preview,
-  CreateBtn,
   DisplayCard,
   CreatedCard,
 };

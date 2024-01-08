@@ -12,8 +12,19 @@ const RenderForms = () => {
       <View>
         {item.type === "shortAnswer" ? (
           <View style={styles.questionContainer}>
-            <View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <Text style={styles.title}>{item.title}</Text>
+              <Text
+                style={{
+                  fontFamily: FONT.placeholder,
+                  color: COLORS.secondaryTextIcon,
+                  fontSize: 12,
+                }}
+              >
+                [{item.type}]
+              </Text>
             </View>
             <View style={styles.options}>
               <Text style={styles.option}>short-answer text</Text>
@@ -32,12 +43,28 @@ const RenderForms = () => {
           item.type === "checkbox" ||
           item.type === "dropdown" ? (
           <View style={styles.questionContainer}>
-            <View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <Text style={styles.title}>{item.title}</Text>
+              <Text
+                style={{
+                  fontFamily: FONT.placeholder,
+                  color: COLORS.secondaryTextIcon,
+                  fontSize: 12,
+                }}
+              >
+                [{item.type}]
+              </Text>
             </View>
             <View style={styles.options}>
-              {item.options.map((option) => (
-                <Text style={styles.option}>{option.value}</Text>
+              {item.options.map((option, index) => (
+                <Text
+                  key={`${item.id}-${index}-${option}`}
+                  style={styles.option}
+                >
+                  {option.value}
+                </Text>
               ))}
             </View>
             <View style={styles.buttonContainer}>
@@ -88,6 +115,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT.h2,
     fontSize: 16,
     color: COLORS.primaryText,
+    width: 250,
   },
   options: {
     paddingHorizontal: 10,

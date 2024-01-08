@@ -1,11 +1,13 @@
 import { Divider } from "react-native-paper";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { FONT, COLORS } from "../../../constants";
-import { AddBtn } from "../Btn";
+import { AddBtn, SaveBtn } from "../Btn";
 import RenderForms from "../RenderForms";
 
 const BuilderQuestion = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Divider
@@ -14,7 +16,9 @@ const BuilderQuestion = () => {
           backgroundColor: COLORS.tertiary,
         }}
       />
+
       <RenderForms />
+
       <Divider
         style={{
           paddingVertical: 0.5,
@@ -28,6 +32,7 @@ const BuilderQuestion = () => {
         <AddBtn buttonType={"checkbox"} />
         <AddBtn buttonType={"dropdown"} />
       </View>
+      <SaveBtn />
     </View>
   );
 };

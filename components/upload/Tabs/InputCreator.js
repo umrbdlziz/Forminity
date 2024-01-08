@@ -5,10 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  TextInput,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Input } from "@rneui/themed";
 
 import { COLORS, FONT } from "../../../constants";
 import { formEdited } from "../../../redux/formSlice";
@@ -49,38 +49,41 @@ const InputCreator = () => {
 
   return typeof route.params !== "undefined" &&
     typeof route.params.title !== "undefined" ? (
-    <ScrollView>
-      <Input
-        label="Question"
-        labelStyle={styles.labelStyle}
+    <ScrollView style={styles.container}>
+      <Text style={styles.labelStyle}>Question:</Text>
+      <TextInput
         value={currTitle}
         onChangeText={(e) => setCurrTitle(e)}
+        style={styles.inputTitle}
       />
-      {currType !== "shortAnswer" ? (
+      {currType !== "shortAnswer" && (
         <View>
-          {currOption.map((temp, index) => (
-            <View>
-              <Input
-                value={temp.value}
+          {currOption.map((option, index) => (
+            <View key={index} style={styles.optionContainer}>
+              <TextInput
+                value={option.value}
                 onChangeText={(e) => handleOptionChange(index, e)}
+                style={styles.inputOption}
               />
               <TouchableOpacity
                 onPress={() =>
                   setCurrOption(
-                    currOption.filter((e) => e.value !== temp.value)
+                    currOption.filter((e) => e.value !== option.value)
                   )
                 }
+                style={styles.deleteBtn}
               >
-                <Text>Delete</Text>
+                <Text style={styles.deleteBtnText}>Delete</Text>
               </TouchableOpacity>
             </View>
           ))}
-          <TouchableOpacity onPress={() => handleOptionAdded()}>
-            <Text>Add Option</Text>
+          <TouchableOpacity
+            onPress={() => handleOptionAdded()}
+            style={styles.addBtn}
+          >
+            <Text style={styles.addBtnText}>Add Option</Text>
           </TouchableOpacity>
         </View>
-      ) : (
-        <View></View>
       )}
       <TouchableOpacity
         onPress={() => {
@@ -89,8 +92,9 @@ const InputCreator = () => {
             screen: "Builder",
           });
         }}
+        style={styles.updateBtn}
       >
-        <Text>Update Question</Text>
+        <Text style={styles.updateBtnText}>update question</Text>
       </TouchableOpacity>
     </ScrollView>
   ) : (
@@ -117,11 +121,71 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   labelStyle: {
+    fontFamily: FONT.h2,
     fontSize: 16,
     color: COLORS.primaryText,
   },
-  inputStyle: {
-    fontFamily: FONT.placeholder,
-    fontSize: 12,
+  inputTitle: {
+    paddingHorizontal: 10,
+    fontFamily: FONT.text,
+    fontSize: 14,
+    borderBottomColor: COLORS.secondaryTextIcon,
+    borderBottomWidth: 0.7,
+  },
+  optionContainer: {
+    display: "flex",
+    flexDirection: "row",
+    padding: 10,
+  },
+  inputOption: {
+    borderBottomColor: COLORS.secondaryTextIcon,
+    borderBottomWidth: 0.7,
+    marginHorizontal: 10,
+    width: 200,
+    height: 40,
+  },
+  deleteBtn: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 10,
+    marginVertical: 7,
+    borderRadius: 5,
+    borderColor: COLORS.err,
+    borderWidth: 1,
+    justifyContent: "center",
+  },
+  deleteBtnText: {
+    color: COLORS.err,
+    fontFamily: FONT.btn,
+    fontSize: 10,
+  },
+  addBtn: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginLeft: 15,
+    marginRight: 255,
+    marginVertical: 5,
+    borderRadius: 10,
+    borderColor: COLORS.secondaryTextIcon,
+    borderWidth: 1,
+    justifyContent: "center",
+  },
+  addBtnText: {
+    color: COLORS.secondaryTextIcon,
+    fontFamily: FONT.btn,
+    fontSize: 10,
+  },
+  updateBtn: {
+    backgroundColor: COLORS.primaryText,
+    padding: 10,
+    borderRadius: 10,
+    marginVertical: 10,
+    // borderColor: COLORS.secondaryTextIcon,
+    borderWidth: 1,
+    alignItems: "center",
+  },
+  updateBtnText: {
+    color: COLORS.primary,
+    fontFamily: FONT.btn,
   },
 });
