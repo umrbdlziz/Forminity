@@ -15,25 +15,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setName, setDescription, addCategory } from "../redux/formSlice";
 
-import { Header, DisplayCard, CreatedCard } from "../components";
+import { Header, DisplayCard, CreatedCard, db } from "../components";
 import { COLORS, FONT, icons } from "../constants";
 
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDrzOY7I1fzL6cCHzQ9xPN5qtjatZDVqcI",
-  authDomain: "firstproject-408306.firebaseapp.com",
-  projectId: "firstproject-408306",
-  storageBucket: "firstproject-408306.appspot.com",
-  messagingSenderId: "525543077982",
-  appId: "1:525543077982:web:f3a4cc0579cf99cfc4dccf",
-  measurementId: "G-YHLJ498C8M",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 const UploadPage = () => {
   const navigation = useNavigation();

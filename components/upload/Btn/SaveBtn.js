@@ -45,11 +45,6 @@ const SaveBtn = () => {
           doc(db, `users/userId/form/${docRef.id}/item`, item.id),
           item
         );
-        //   const docRef = await setDoc(
-        //     doc(db, `users/userId/form/${docRef1.id}/item`, item.id),
-        //     item
-        //   );
-        //   console.log("Document added with ID: ", docRef);
         dispatch(clearItem());
         dispatch(clearForm());
       }

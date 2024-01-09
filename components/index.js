@@ -6,6 +6,7 @@ import CardContainer from "./home/CardContainer";
 import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
+import { db } from "./firebase/config";
 
 export {
   BottomTabIcon,
@@ -18,4 +19,5 @@ export {
   Preview,
   DisplayCard,
   CreatedCard,
+  db,
 };

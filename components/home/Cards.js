@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   },
   descContainer: {
     fontFamily: FONT.subtitle,
+    fontSize: 12,
   },
   secondContainer: {
     flexDirection: "row",
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   qNumText: {
     color: COLORS.primary,
     fontFamily: FONT.text,
-    fontSize: 12,
+    fontSize: 10,
   },
   categoryContainer: {
     backgroundColor: COLORS.secondary,
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     fontFamily: FONT.text,
-    fontSize: 12,
+    fontSize: 10,
     color: COLORS.primary,
   },
 });
