@@ -1,49 +1,30 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const formSlice = createSlice({
+const formSlice = createSlice({
   name: "form",
-  initialState: [],
+  initialState: {
+    name: "",
+    description: "",
+    category: "",
+  },
   reducers: {
-    formAdded: {
-      reducer: (state, action) => {
-        state.push(action.payload);
-      },
-      prepare: (type, title, options) => {
-        const id = nanoid();
-        return {
-          payload: {
-            type,
-            id,
-            title,
-            ...(type !== "shortAnswer" ? { options } : {}),
-          },
-        };
-      },
+    setName: (state, action) => {
+      state.name = action.payload;
     },
-    formDeleted: {
-      reducer: (state, action) => {
-        return state.filter((e) => e.id !== action.payload.id);
-      },
-      prepare: (id) => {
-        return { payload: { id } };
-      },
+    setDescription: (state, action) => {
+      state.description = action.payload;
     },
-    formEdited: {
-      reducer: (state, action) => {
-        const { type, id, newTitle, newOptions } = action.payload;
-        const toEdit = state.find((form) => form.id === id);
-
-        if (toEdit) {
-          toEdit.title = newTitle;
-          type !== "shortAnswer" ? (toEdit.options = newOptions) : {};
-        }
-      },
-      prepare: (type, id, newTitle, newOptions) => {
-        return { payload: { type, id, newTitle, newOptions } };
-      },
+    addCategory: (state, action) => {
+      state.category = action.payload;
+    },
+    clearForm: (state) => {
+      state.name = "";
+      state.description = "";
+      state.category = "";
     },
   },
 });
 
-export const { formAdded, formDeleted, formEdited } = formSlice.actions;
+export const { setName, setDescription, addCategory, clearForm } =
+  formSlice.actions;
 export default formSlice.reducer;

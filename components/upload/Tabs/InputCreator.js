@@ -11,7 +11,8 @@ import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { COLORS, FONT } from "../../../constants";
-import { formEdited } from "../../../redux/formSlice";
+// import { formEdited } from "../../../redux/formSlice";
+import { itemEdited } from "../../../redux/itemSlice";
 
 const InputCreator = () => {
   const navigation = useNavigation();
@@ -44,7 +45,7 @@ const InputCreator = () => {
   const handleOptionAdded = () => {
     const newList = [...currOption, { value: "newOption" }];
     setCurrOption(newList);
-    dispatch(formEdited(currType, currId, currTitle, currOption));
+    dispatch(itemEdited(currType, currId, currTitle, currOption));
   };
 
   return typeof route.params !== "undefined" &&
@@ -87,7 +88,7 @@ const InputCreator = () => {
       )}
       <TouchableOpacity
         onPress={() => {
-          dispatch(formEdited(currType, currId, currTitle, currOption));
+          dispatch(itemEdited(currType, currId, currTitle, currOption));
           navigation.navigate("UploadPage2", {
             screen: "Builder",
           });

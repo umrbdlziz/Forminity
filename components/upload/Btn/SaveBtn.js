@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearForm } from "../../../redux/formSlice";
+import { clearItem } from "../../../redux/itemSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 import { FONT, COLORS } from "../../../constants";
 
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, addDoc, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
@@ -24,17 +27,31 @@ const db = getFirestore(app);
 
 const SaveBtn = () => {
   const navigation = useNavigation();
+  const items = useSelector((state) => state.item);
   const forms = useSelector((state) => state.form);
+  const dispatch = useDispatch();
+  const formId = nanoid();
 
   const onCreate = async () => {
-    console.log(forms);
     try {
-      for (const form of forms) {
-        if (form.options === undefined) {
-          form.options = [];
+      const docRef = await addDoc(collection(db, "users/userId/form"), {
+        info: forms,
+      });
+      for (const item of items) {
+        if (item.options === undefined) {
+          item.options = [];
         }
-        const docRef = await addDoc(collection(db, `users/form/item`), form);
-        console.log("Document added with ID: ", docRef.id);
+        await setDoc(
+          doc(db, `users/userId/form/${docRef.id}/item`, item.id),
+          item
+        );
+        //   const docRef = await setDoc(
+        //     doc(db, `users/userId/form/${docRef1.id}/item`, item.id),
+        //     item
+        //   );
+        //   console.log("Document added with ID: ", docRef);
+        dispatch(clearItem());
+        dispatch(clearForm());
       }
     } catch (e) {
       console.error("Error adding document: ", e);

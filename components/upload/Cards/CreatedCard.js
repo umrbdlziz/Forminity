@@ -13,12 +13,12 @@ const CreatedCard = ({ title, time, desc, number }) => {
           <Text style={styles.badgeText}>PUBLISHED</Text>
         </View>
       </View>
-      <View style={styles.topDisplayCard}>
-        <Text style={styles.time}>{time}</Text>
-        <View style={styles.topDisplayCard}>
-          <Image source={icons.complete} style={styles.img} />
-          <Text>{number}</Text>
-        </View>
+      {/* <View style={styles.topDisplayCard}> */}
+      {/* <Text style={styles.time}>{time}</Text> */}
+      <View style={styles.completeDisplay}>
+        <Image source={icons.complete} style={styles.img} />
+        <Text>{number}</Text>
+        {/* </View> */}
       </View>
       <View style={styles.desc}>
         <Text style={styles.descText} numberOfLines={3} ellipsizeMode="tail">
@@ -71,6 +71,14 @@ const styles = StyleSheet.create({
     fontFamily: FONT.subtitle,
     fontSize: 14,
     color: COLORS.secondaryTextIcon,
+  },
+  completeDisplay: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    gap: 3,
+    paddingRight: 5,
   },
   img: {
     width: 15,

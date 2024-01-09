@@ -12,7 +12,7 @@ import {
 export default function Preview() {
   const { control } = useForm({});
 
-  const currForms = useSelector((state) => state.form);
+  const currItems = useSelector((state) => state.item);
   const renderForms = ({ item }) => {
     return (
       <>
@@ -92,7 +92,7 @@ export default function Preview() {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={currForms}
+        data={currItems}
         renderItem={renderForms}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={true}

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Divider } from "react-native-paper";
 import { Overlay } from "@rneui/themed";
+import SelectDropdown from "react-native-select-dropdown";
 import {
   View,
   StyleSheet,
@@ -8,22 +9,62 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  FlatList,
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setName, setDescription, addCategory } from "../redux/formSlice";
 
 import { Header, DisplayCard, CreatedCard } from "../components";
 import { COLORS, FONT, icons } from "../constants";
 
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDrzOY7I1fzL6cCHzQ9xPN5qtjatZDVqcI",
+  authDomain: "firstproject-408306.firebaseapp.com",
+  projectId: "firstproject-408306",
+  storageBucket: "firstproject-408306.appspot.com",
+  messagingSenderId: "525543077982",
+  appId: "1:525543077982:web:f3a4cc0579cf99cfc4dccf",
+  measurementId: "G-YHLJ498C8M",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const UploadPage = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
+  const [totalForm, setTotalForm] = useState(0);
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      const querySnapshot = await getDocs(collection(db, "users/userId/form"));
+      setTotalForm(querySnapshot.size);
+      const cardsData = querySnapshot.docs.map((doc) => (
+        <CreatedCard
+          key={doc.id}
+          title={doc.data().info.name}
+          time="about 12 hour ago"
+          number={4}
+          desc={doc.data().info.description}
+        />
+      ));
+      setCards(cardsData);
+    };
+
+    fetchCards();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -38,7 +79,7 @@ const UploadPage = () => {
         <DisplayCard
           title="Total Form Created"
           icon={icons.created}
-          number="4"
+          number={totalForm}
           desc="All time form created"
         />
       </View>
@@ -54,34 +95,13 @@ const UploadPage = () => {
           <Image source={icons.createNew} />
           <Text style={styles.createBtnText}>Create New Form</Text>
         </TouchableOpacity>
-        <CreatedCard
+        {/* <CreatedCard
           title="DIGITAL SAFETY CAMPAIGN"
           time="about 12 hour ago"
           number={4}
           desc={"No description"}
-        />
-        <CreatedCard
-          title="CABARAN DALAM PENGEKALAN TOLERANSI ANTARA ETNIK DI MALAYSIA"
-          time="about 2 week ago"
-          number={13}
-          desc={
-            "Kami menjemput anda untuk mengambil bahagian dan menjadi sebahagian daripada responden kami. Tinjauan ini akan mengambil masa kira-kira 2 hingga 4 minit untuk diselesaikan. Segala maklumat yang dikumpulkan hanya akan digunakan untuk tujuan akademik sahaja dan dirahsiakan"
-          }
-        />
-        <CreatedCard
-          title="CORRELATION BETWEEN THE ROLE OF SOCIAL MEDIA AND AWARENESS OF JAPAN'S NUCLEAR-CONTAMINATED WATER IN MALAYSIA"
-          time="a mount ago"
-          number={21}
-          desc={
-            "This data collecting is to fulfill the course of YKT 230 Communication Research Method。All data collected will only be used for the purpose of research          "
-          }
-        />
-        <CreatedCard
-          title="PROGRAM DONATE BLOOD HERO 2.0"
-          time="about 2 mounth ago"
-          number={39}
-          desc={`Program derma darah "Blood Hero" kini kembali lagi! Program ini terbuka semua pelajar USM anjuran Ikatan Mahasiswa/I Johor (IKMAR) Universiti Sains Malaysia dengan kerjasama Pusat Sejahtera dan Unit Tabung Darah Hospital Pulau Pinang`}
-        />
+        /> */}
+        {cards}
       </ScrollView>
       <Overlay
         isVisible={visible}
@@ -96,12 +116,33 @@ const UploadPage = () => {
           create a new form to start collecting responses
         </Text>
         <Text style={styles.inputName}>Form name:</Text>
-        <TextInput style={styles.inputNameContainer} />
+        <TextInput
+          style={styles.inputNameContainer}
+          onChangeText={(text) => dispatch(setName(text))}
+        />
         <Text style={styles.inputDesc}>Form description:</Text>
         <TextInput
           style={styles.inputDescContainer}
           multiline={true}
           autoGrow={true}
+          onChangeText={(text) => dispatch(setDescription(text))}
+        />
+        <Text style={styles.inputName}>Category:</Text>
+        <SelectDropdown
+          data={[
+            "Academic",
+            "Social",
+            "Health",
+            "Psychology",
+            "Sport",
+            "Others",
+          ]}
+          onSelect={(value) => dispatch(addCategory(value))}
+          defaultButtonText={"Select an option"}
+          buttonStyle={styles.buttonStyle}
+          buttonTextStyle={styles.buttonTextStyle}
+          rowTextStyle={styles.rowTextStyle}
+          buttonTextAfterSelection={(selectedItem) => selectedItem}
         />
         <TouchableOpacity
           style={styles.createFormBtn}
@@ -183,7 +224,8 @@ const styles = StyleSheet.create({
   inputNameContainer: {
     borderWidth: 1,
     borderColor: COLORS.secondaryTextIcon,
-    borderRadius: 10,
+    borderRadius: 5,
+    paddingLeft: 10,
     width: 250,
     height: 40,
   },
@@ -196,10 +238,28 @@ const styles = StyleSheet.create({
   inputDescContainer: {
     borderWidth: 1,
     borderColor: COLORS.secondaryTextIcon,
-    borderRadius: 10,
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingVertical: 10,
     width: 250,
     height: 100,
     textAlignVertical: "bottom",
+  },
+  buttonStyle: {
+    width: 250,
+    height: 40,
+    backgroundColor: COLORS.primary,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: COLORS.tertiary,
+  },
+  buttonTextStyle: {
+    fontFamily: FONT.text,
+    fontSize: 14,
+  },
+  rowTextStyle: {
+    fontSize: 14,
+    color: COLORS.secondaryTextIcon,
   },
   createFormBtn: {
     alignItems: "flex-end",

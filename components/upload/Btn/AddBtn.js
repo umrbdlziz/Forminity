@@ -2,7 +2,8 @@ import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { useDispatch } from "react-redux";
 
-import { formAdded } from "../../../redux/formSlice";
+// import { formAdded } from "../../../redux/formSlice";
+import { itemAdded } from "../../../redux/itemSlice";
 import { COLORS, FONT } from "../../../constants";
 import globalStyle from "../../../App/general.style";
 
@@ -14,7 +15,9 @@ const AddBtn = ({ buttonType }) => {
       {buttonType === "shortAnswer" ? (
         <TouchableOpacity
           style={[styles.addBtnContainer, globalStyle.shadow]}
-          onPress={() => dispatch(formAdded(buttonType, "What your Question?"))}
+          onPress={() => {
+            dispatch(itemAdded(buttonType, "What your short answer question?"));
+          }}
         >
           <Text style={styles.addBtn}>SHORT ANSWER</Text>
         </TouchableOpacity>
@@ -23,7 +26,7 @@ const AddBtn = ({ buttonType }) => {
           style={[styles.addBtnContainer, globalStyle.shadow]}
           onPress={() =>
             dispatch(
-              formAdded(buttonType, "What your Question?", [
+              itemAdded(buttonType, `What your ${buttonType} Question?`, [
                 {
                   value: "option1",
                 },

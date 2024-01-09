@@ -1,5 +1,3 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView, StyleSheet } from "react-native";
 
 import {
@@ -10,8 +8,6 @@ import {
 } from "../components";
 
 const HomePage = () => {
-  const navigation = useNavigation();
-
   return (
     <SafeAreaView style={styles.container}>
       <Header headerText={"FORMINITY"} />

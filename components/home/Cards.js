@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   categoryText: {
-    fontFamily: FONT.subtitle,
+    fontFamily: FONT.text,
     fontSize: 12,
+    color: COLORS.primary,
   },
 });

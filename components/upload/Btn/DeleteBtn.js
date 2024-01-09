@@ -3,7 +3,8 @@ import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 
 import { COLORS, FONT } from "../../../constants";
-import { formDeleted } from "../../../redux/formSlice";
+// import { formDeleted } from "../../../redux/formSlice";
+import { itemDeleted } from "../../../redux/itemSlice";
 import globalStyle from "../../../App/general.style";
 
 const DeleteBtn = ({ itemId }) => {
@@ -12,7 +13,7 @@ const DeleteBtn = ({ itemId }) => {
   return (
     <TouchableOpacity
       style={[styles.buttonStyle, globalStyle.shadow]}
-      onPress={() => dispatch(formDeleted(itemId))}
+      onPress={() => dispatch(itemDeleted(itemId))}
     >
       <Text style={styles.titleStyle}>delete</Text>
     </TouchableOpacity>

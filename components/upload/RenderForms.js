@@ -5,7 +5,7 @@ import { DeleteBtn, EditBtn } from "./Btn";
 import { FONT, COLORS } from "../../constants";
 
 const RenderForms = () => {
-  const forms = useSelector((state) => state.form);
+  const items = useSelector((state) => state.item);
 
   const renderForms = ({ item }) => {
     return (
@@ -86,7 +86,7 @@ const RenderForms = () => {
 
   return (
     <FlatList
-      data={forms}
+      data={items}
       renderItem={renderForms}
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={true}
