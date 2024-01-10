@@ -1,12 +1,34 @@
-import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import { useDispatch } from "react-redux";
+import {
+  setUserId,
+  setFormId,
+  setName,
+  setDescription,
+  addCategory,
+} from "../../redux/displaySlice";
 
 import { FONT, COLORS } from "../../constants";
 import globalStyle from "../../App/general.style";
 
-const Cards = ({ title, desc, qNum, category }) => {
+const Cards = ({ userid, id, title, desc, qNum, category }) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   return (
-    <TouchableOpacity style={[styles.container, globalStyle.shadow]}>
+    <TouchableOpacity
+      style={[styles.container, globalStyle.shadow]}
+      onPress={() => {
+        navigation.navigate("FillFormPage");
+        dispatch(setUserId(userid));
+        dispatch(setFormId(id));
+        dispatch(setName(title));
+        dispatch(setDescription(desc));
+        dispatch(addCategory(category));
+      }}
+    >
       <Text style={styles.titleContainer}>{title}</Text>
       <Text style={styles.descContainer}>{desc}</Text>
       <View style={styles.secondContainer}>

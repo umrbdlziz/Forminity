@@ -6,6 +6,7 @@ import UploadPage from "./UploadPage";
 import PointPage from "./PointPage";
 import ProfilePage from "./ProfilePage";
 import UploadPage2 from "./UploadPage2";
+import FillFormPage from "./FillFormPage";
 
 export {
   HomePage,
@@ -16,4 +17,5 @@ export {
   PointPage,
   ProfilePage,
   UploadPage2,
+  FillFormPage,
 };

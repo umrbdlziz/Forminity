@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, FlatList } from "react-native";
 
+import { useDispatch } from "react-redux";
+import {
+  setFormId,
+  setName,
+  setDescription,
+  addCategory,
+} from "../../redux/displaySlice";
+
 import Cards from "../../components/home/Cards";
 import { db } from "../firebase/config";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-// import DATA from "../common/DATA";
+import { collection, getDocs } from "firebase/firestore";
 
 const CardContainer = () => {
   const [cards, setCards] = useState([]);
@@ -22,6 +29,7 @@ const CardContainer = () => {
           );
           formSnapshot.forEach((doc) => {
             cardsData.push({
+              userid: userDoc.id,
               id: doc.id,
               name: doc.data().info.name,
               number: 4,
@@ -42,6 +50,8 @@ const CardContainer = () => {
       data={cards}
       renderItem={({ item }) => (
         <Cards
+          userid={item.userid}
+          id={item.id}
           title={item.name}
           desc={item.description}
           qNum={item.number}

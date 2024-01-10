@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -6,50 +7,49 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
-
 import { useForm, Controller } from "react-hook-form";
+
 import { useSelector } from "react-redux";
 
 import {
   MultipleAnswer,
-  DropdownAnswer,
   CheckboxAnswer,
-} from "../QuestionType";
+  DropdownAnswer,
+} from "../components/upload/QuestionType";
 
-import { collection } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { db } from "../components/firebase/config";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDrzOY7I1fzL6cCHzQ9xPN5qtjatZDVqcI",
-  authDomain: "firstproject-408306.firebaseapp.com",
-  projectId: "firstproject-408306",
-  storageBucket: "firstproject-408306.appspot.com",
-  messagingSenderId: "525543077982",
-  appId: "1:525543077982:web:f3a4cc0579cf99cfc4dccf",
-  measurementId: "G-YHLJ498C8M",
-};
+const FillFormPage = () => {
+  const [question, setQuestion] = useState([]);
+  const forms = useSelector((state) => state.display);
+  const allQuestion = [];
+  const { control, handleSubmit } = useForm({});
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+  useEffect(() => {
+    const fetchForms = async () => {
+      const querySnapshot = await getDocs(
+        collection(db, `users/${forms.userid}/form/${forms.formId}/item`)
+      );
+      querySnapshot.forEach((doc) => {
+        allQuestion.push({
+          id: doc.id,
+          type: doc.data().type,
+          title: doc.data().title,
 
-export default function createForm() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({});
+          options: doc.data().type !== "shortAnswer" ? doc.data().options : {},
+        });
+      });
+      setQuestion(allQuestion);
+    };
+    fetchForms();
+  }, []);
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  const currForms = useSelector((state) => state.form);
   const renderForms = ({ item }) => {
     return (
       <>
         <Text>{item.title}</Text>
+        {/* <Text>{JSON.stringify(item.options)}</Text> */}
 
         {item.type === "shortAnswer" && (
           <Controller
@@ -122,29 +122,26 @@ export default function createForm() {
     );
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <View>
+      <Text>{forms.name}</Text>
+      <Text>{forms.description}</Text>
+
       <FlatList
-        data={currForms}
+        data={question}
         renderItem={renderForms}
         keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={true}
-        style={styles.container}
-        contentContainerStyle={styles.scrollview}
+
+        // style={styles.container}
+        // contentContainerStyle={styles.scrollview}
       />
-      {console.log(currForms)}
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-  },
-  scrollview: {
-    gap: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-  },
-});
+export default FillFormPage;
