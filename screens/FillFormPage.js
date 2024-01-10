@@ -6,8 +6,11 @@ import {
   Button,
   FlatList,
   StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import { Divider } from "react-native-paper";
 
 import { useSelector } from "react-redux";
 
@@ -16,6 +19,8 @@ import {
   CheckboxAnswer,
   DropdownAnswer,
 } from "../components/upload/QuestionType";
+import { COLORS, FONT } from "../constants";
+import globalStyle from "../App/general.style";
 
 import { db } from "../components/firebase/config";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
@@ -48,8 +53,7 @@ const FillFormPage = () => {
   const renderForms = ({ item }) => {
     return (
       <>
-        <Text>{item.title}</Text>
-        {/* <Text>{JSON.stringify(item.options)}</Text> */}
+        <Text style={styles.questionTitle}>{item.title}</Text>
 
         {item.type === "shortAnswer" && (
           <Controller
@@ -60,9 +64,10 @@ const FillFormPage = () => {
             }}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                placeholder="First name"
+                placeholder="Your answer"
                 onChangeText={onChange}
                 value={value}
+                style={styles.shortAnswer}
               />
             )}
           />
@@ -127,21 +132,74 @@ const FillFormPage = () => {
   };
 
   return (
-    <View>
-      <Text>{forms.name}</Text>
-      <Text>{forms.description}</Text>
+    <View style={styles.container}>
+      <Text style={styles.name}>{forms.name}</Text>
+      <Text style={styles.description}>{forms.description}</Text>
+      <Divider
+        style={{
+          paddingVertical: 0.5,
+          backgroundColor: COLORS.tertiary,
+        }}
+      />
 
       <FlatList
         data={question}
         renderItem={renderForms}
         keyExtractor={(item) => item.id}
-
-        // style={styles.container}
-        // contentContainerStyle={styles.scrollview}
+        keyboardShouldPersistTaps="always"
+        ListFooterComponent={
+          <TouchableOpacity
+            onPress={handleSubmit(onSubmit)}
+            style={[globalStyle.Btn, { alignSelf: "center" }]}
+          >
+            <Text style={globalStyle.textBtn}>SUBMIT</Text>
+          </TouchableOpacity>
+        }
+        contentContainerStyle={styles.flatlistContainer}
       />
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
 };
 
 export default FillFormPage;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    display: "flex",
+    gap: 10,
+    backgroundColor: COLORS.background,
+    paddingTop: 50,
+    paddingHorizontal: 20,
+  },
+  name: {
+    fontFamily: FONT.h2,
+    fontSize: 30,
+  },
+  description: {
+    fontFamily: FONT.text,
+    fontSize: 12,
+  },
+  flatlistContainer: {
+    display: "flex",
+    gap: 20,
+    paddingBottom: 20,
+    paddingHorizontal: 10,
+  },
+  btn: {
+    backgroundColor: COLORS.secondary,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  questionTitle: {
+    fontFamily: FONT.h2,
+    fontSize: 16,
+  },
+  shortAnswer: {
+    fontFamily: FONT.text,
+    fontSize: 14,
+    paddingVertical: 10,
+    paddingLeft: 15,
+  },
+});
