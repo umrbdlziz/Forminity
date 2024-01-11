@@ -19,6 +19,7 @@ import { Header, DisplayCard, CreatedCard, db } from "../components";
 import { COLORS, FONT, icons } from "../constants";
 
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { set } from "react-hook-form";
 
 const UploadPage = () => {
   const navigation = useNavigation();
@@ -31,24 +32,38 @@ const UploadPage = () => {
     setVisible(!visible);
   };
   const [cards, setCards] = useState([]);
+  const [totalResponses, setTotalResponses] = useState(0);
+  let temp = 0;
 
   useEffect(() => {
-    const fetchCards = async () => {
-      const querySnapshot = await getDocs(collection(db, "users/userId/form"));
-      setTotalForm(querySnapshot.size);
-      const cardsData = querySnapshot.docs.map((doc) => (
-        <CreatedCard
-          key={doc.id}
-          title={doc.data().info.name}
-          time="about 12 hour ago"
-          number={4}
-          desc={doc.data().info.description}
-        />
-      ));
-      setCards(cardsData);
-    };
+    const fetchResponses = async () => {
+      const formsSnapshot = await getDocs(collection(db, `users/userId/form`));
+      const cardsData = [];
+      setTotalForm(formsSnapshot.size);
+      for (const formDoc of formsSnapshot.docs) {
+        const formId = formDoc.id;
 
-    fetchCards();
+        const responsesSnapshot = await getDocs(
+          collection(db, `users/userId/form/${formId}/response`)
+        );
+
+        cardsData.push(
+          <CreatedCard
+            key={formId}
+            title={formDoc.data().info.name}
+            number={responsesSnapshot.size}
+            desc={formDoc.data().info.description}
+          />
+        );
+
+        temp += responsesSnapshot.size;
+        for (const responseDoc of responsesSnapshot.docs) {
+        }
+      }
+      setCards(cardsData);
+      setTotalResponses(temp);
+    };
+    fetchResponses();
   }, []);
 
   return (
@@ -58,7 +73,7 @@ const UploadPage = () => {
         <DisplayCard
           title="Total Submission"
           icon={icons.complete}
-          number="123"
+          number={totalResponses}
           desc="All time form submission"
         />
         <DisplayCard
@@ -80,12 +95,6 @@ const UploadPage = () => {
           <Image source={icons.createNew} />
           <Text style={styles.createBtnText}>Create New Form</Text>
         </TouchableOpacity>
-        {/* <CreatedCard
-          title="DIGITAL SAFETY CAMPAIGN"
-          time="about 12 hour ago"
-          number={4}
-          desc={"No description"}
-        /> */}
         {cards}
       </ScrollView>
       <Overlay

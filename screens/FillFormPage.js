@@ -2,28 +2,21 @@ import { useEffect, useState } from "react";
 import {
   Text,
   View,
-  TextInput,
-  Button,
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  KeyboardAvoidingView,
 } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Divider } from "react-native-paper";
 
 import { useSelector } from "react-redux";
 
-import {
-  MultipleAnswer,
-  CheckboxAnswer,
-  DropdownAnswer,
-} from "../components/upload/QuestionType";
 import { COLORS, FONT } from "../constants";
 import globalStyle from "../App/general.style";
+import { renderForms } from "../components/common/renderForms";
 
 import { db } from "../components/firebase/config";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, addDoc, collection, getDocs } from "firebase/firestore";
 
 const FillFormPage = () => {
   const [question, setQuestion] = useState([]);
@@ -50,85 +43,17 @@ const FillFormPage = () => {
     fetchForms();
   }, []);
 
-  const renderForms = ({ item }) => {
-    return (
-      <>
-        <Text style={styles.questionTitle}>{item.title}</Text>
-
-        {item.type === "shortAnswer" && (
-          <Controller
-            control={control}
-            name={item.title}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                placeholder="Your answer"
-                onChangeText={onChange}
-                value={value}
-                style={styles.shortAnswer}
-              />
-            )}
-          />
-        )}
-
-        {item.type === "multipleAnswer" && (
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <MultipleAnswer
-                options={item.options}
-                onChange={onChange}
-                value={value}
-              />
-            )}
-            name={item.title}
-          />
-        )}
-
-        {item.type === "checkbox" && (
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <CheckboxAnswer
-                options={item.options}
-                onChange={onChange}
-                value={value}
-              />
-            )}
-            name={item.title}
-          />
-        )}
-
-        {item.type === "dropdown" && (
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <DropdownAnswer
-                options={item.options}
-                onChange={onChange}
-                value={value}
-              />
-            )}
-            name={item.title}
-          />
-        )}
-      </>
-    );
-  };
-
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const docRef = await addDoc(
+        collection(db, `users/${forms.userid}/form/${forms.formId}/response`),
+        data
+      );
+      console.log("Document written with ID: ", docRef.id);
+      console.log(data);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   return (
@@ -144,7 +69,7 @@ const FillFormPage = () => {
 
       <FlatList
         data={question}
-        renderItem={renderForms}
+        renderItem={({ item }) => renderForms(item, control)}
         keyExtractor={(item) => item.id}
         keyboardShouldPersistTaps="always"
         ListFooterComponent={
@@ -191,15 +116,5 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5,
-  },
-  questionTitle: {
-    fontFamily: FONT.h2,
-    fontSize: 16,
-  },
-  shortAnswer: {
-    fontFamily: FONT.text,
-    fontSize: 14,
-    paddingVertical: 10,
-    paddingLeft: 15,
   },
 });

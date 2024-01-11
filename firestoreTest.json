@@ -47,7 +47,6 @@
           "responses": {
             "response123": {
               "userId": "user123",
-              "submitTime": "2019-01-01T00:00:00.000Z",
               "answers": {
                 "item456": "Option 1",
                 "item789": "Option 3",
@@ -56,7 +55,6 @@
             },
             "response456": {
               "userId": "user934",
-              "submitTime": "2019-01-01T00:00:00.000Z",
               "answers": {
                 "item456": "Option 2",
                 "item789": ["Option 3", "Option 4"],

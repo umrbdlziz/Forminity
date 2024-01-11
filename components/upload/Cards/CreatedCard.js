@@ -2,7 +2,7 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 
 import { COLORS, FONT, icons } from "../../../constants";
 
-const CreatedCard = ({ title, time, desc, number }) => {
+const CreatedCard = ({ title, desc, number }) => {
   return (
     <View style={styles.displayCard}>
       <View style={styles.topDisplayCard}>
@@ -13,8 +13,7 @@ const CreatedCard = ({ title, time, desc, number }) => {
           <Text style={styles.badgeText}>PUBLISHED</Text>
         </View>
       </View>
-      {/* <View style={styles.topDisplayCard}> */}
-      {/* <Text style={styles.time}>{time}</Text> */}
+
       <View style={styles.completeDisplay}>
         <Image source={icons.complete} style={styles.img} />
         <Text>{number}</Text>
