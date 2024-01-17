@@ -19,7 +19,6 @@ import { Header, DisplayCard, CreatedCard, db } from "../components";
 import { COLORS, FONT, icons } from "../constants";
 
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-import { set } from "react-hook-form";
 
 const UploadPage = () => {
   const navigation = useNavigation();
@@ -50,6 +49,7 @@ const UploadPage = () => {
         cardsData.push(
           <CreatedCard
             key={formId}
+            formId={formId}
             title={formDoc.data().info.name}
             number={responsesSnapshot.size}
             desc={formDoc.data().info.description}
@@ -57,8 +57,8 @@ const UploadPage = () => {
         );
 
         temp += responsesSnapshot.size;
-        for (const responseDoc of responsesSnapshot.docs) {
-        }
+        // for (const responseDoc of responsesSnapshot.docs) {
+        // }
       }
       setCards(cardsData);
       setTotalResponses(temp);

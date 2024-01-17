@@ -16,7 +16,7 @@ export const renderForms = (item, control) => {
       {item.type === "shortAnswer" && (
         <Controller
           control={control}
-          name={item.title}
+          name={item.id}
           rules={{
             required: true,
           }}
@@ -44,7 +44,7 @@ export const renderForms = (item, control) => {
               value={value}
             />
           )}
-          name={item.title}
+          name={item.id}
         />
       )}
 
@@ -61,7 +61,7 @@ export const renderForms = (item, control) => {
               value={value}
             />
           )}
-          name={item.title}
+          name={item.id}
         />
       )}
 
@@ -78,7 +78,7 @@ export const renderForms = (item, control) => {
               value={value}
             />
           )}
-          name={item.title}
+          name={item.id}
         />
       )}
     </>

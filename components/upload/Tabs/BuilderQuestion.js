@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { FONT, COLORS } from "../../../constants";
 import { AddBtn, SaveBtn } from "../Btn";
-import RenderForms from "../RenderForms";
+import RenderFormsBuilder from "../render/RenderFormsBuilder";
 
 const BuilderQuestion = () => {
   const navigation = useNavigation();
@@ -17,7 +17,7 @@ const BuilderQuestion = () => {
         }}
       />
 
-      <RenderForms />
+      <RenderFormsBuilder />
 
       <Divider
         style={{

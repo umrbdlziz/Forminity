@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useForm } from "react-hook-form";
 import { Divider } from "react-native-paper";
-
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import { COLORS, FONT } from "../constants";
@@ -23,6 +23,7 @@ const FillFormPage = () => {
   const forms = useSelector((state) => state.display);
   const allQuestion = [];
   const { control, handleSubmit } = useForm({});
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchForms = async () => {
@@ -47,13 +48,17 @@ const FillFormPage = () => {
     try {
       const docRef = await addDoc(
         collection(db, `users/${forms.userid}/form/${forms.formId}/response`),
-        data
+        {
+          userId: forms.userid,
+          answer: data,
+        }
       );
       console.log("Document written with ID: ", docRef.id);
-      console.log(data);
+      console.log(forms.userid + "=>" + data);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    navigation.navigate("HomePage");
   };
 
   return (

@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux";
 
-import { DeleteBtn, EditBtn } from "./Btn";
-import { FONT, COLORS } from "../../constants";
+import { DeleteBtn, EditBtn } from "../Btn";
+import { FONT, COLORS } from "../../../constants";
 
-const RenderForms = () => {
+const RenderFormsBuilder = () => {
   const items = useSelector((state) => state.item);
 
   const renderForms = ({ item }) => {
@@ -96,7 +96,7 @@ const RenderForms = () => {
   );
 };
 
-export default RenderForms;
+export default RenderFormsBuilder;
 
 const styles = StyleSheet.create({
   container: {

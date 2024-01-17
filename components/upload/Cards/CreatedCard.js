@@ -1,8 +1,10 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { COLORS, FONT, icons } from "../../../constants";
 
-const CreatedCard = ({ title, desc, number }) => {
+const CreatedCard = ({ formId, title, desc, number }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.displayCard}>
       <View style={styles.topDisplayCard}>
@@ -24,7 +26,10 @@ const CreatedCard = ({ title, desc, number }) => {
           {desc}
         </Text>
       </View>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => navigation.navigate("ResponsesPage", { formId: formId })}
+      >
         <Text style={styles.btnText}>View Submission</Text>
         <Image style={styles.btnImg} source={icons.rightArrow} />
       </TouchableOpacity>

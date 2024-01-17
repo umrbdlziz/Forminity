@@ -13,6 +13,7 @@ import {
   UploadPage,
   UploadPage2,
   FillFormPage,
+  ResponsesPage,
 } from "../screens";
 import BottomTabsRoot from "../components/common/BottomTabsRoot";
 
@@ -54,6 +55,7 @@ const App = () => {
               <Stack.Screen name="UploadPage" component={UploadPage} />
               <Stack.Screen name="UploadPage2" component={UploadPage2} />
               <Stack.Screen name="FillFormPage" component={FillFormPage} />
+              <Stack.Screen name="ResponsesPage" component={ResponsesPage} />
             </Stack.Navigator>
           ) : (
             <SplashScreen />
