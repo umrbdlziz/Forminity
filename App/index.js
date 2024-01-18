@@ -50,7 +50,7 @@ const App = () => {
               initialRouteName="LoginPage"
               screenOptions={{ headerShown: false }}
             >
-              <Stack.Screen name="LoginPage" component={LoginPage} />
+              <Stack.Screen name="UmarHebat" component={LoginPage} />
               <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
               <Stack.Screen name="UploadPage" component={UploadPage} />
               <Stack.Screen name="UploadPage2" component={UploadPage2} />
