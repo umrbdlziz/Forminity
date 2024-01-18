@@ -25,17 +25,23 @@
             "item456": {
               "title": "Item 456",
               "type": "multipleAnswer",
-              "options": ["Option 1", "Option 2", "Option 3"]
+              "options": [
+                { "value": "Option 1" },
+                { "value": "Option 2" },
+                { "value": "Option 3" },
+                { "value": "Option 4" },
+                { "value": "Option 5" }
+              ]
             },
             "item789": {
               "title": "Item 789",
               "type": "checkbox",
               "options": [
-                "Option 1",
-                "Option 2",
-                "Option 3",
-                "Option 4",
-                "Option 5"
+                { "value": "Option 1" },
+                { "value": "Option 2" },
+                { "value": "Option 3" },
+                { "value": "Option 4" },
+                { "value": "Option 5" }
               ]
             },
             "item101112": {

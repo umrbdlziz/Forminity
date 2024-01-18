@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
-
+//Umar hebat was here
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
