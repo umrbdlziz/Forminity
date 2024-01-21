@@ -74,7 +74,7 @@ const FillFormPage = () => {
 
       <FlatList
         data={question}
-        renderItem={({ item }) => renderForms(item, control)}
+        renderItem={({ item, index }) => renderForms(item, control, index)}
         keyExtractor={(item) => item.id}
         keyboardShouldPersistTaps="always"
         ListFooterComponent={

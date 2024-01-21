@@ -8,10 +8,12 @@ import {
 } from "../upload/QuestionType";
 import { COLORS, FONT } from "../../constants";
 
-export const renderForms = (item, control) => {
+export const renderForms = (item, control, index) => {
   return (
     <>
-      <Text style={styles.questionTitle}>{item.title}</Text>
+      <Text style={styles.questionTitle}>
+        {index + 1}. {item.title}
+      </Text>
 
       {item.type === "shortAnswer" && (
         <Controller

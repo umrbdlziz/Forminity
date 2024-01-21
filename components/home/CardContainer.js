@@ -27,16 +27,21 @@ const CardContainer = () => {
           const formSnapshot = await getDocs(
             collection(db, `users/${userDoc.id}/form`)
           );
-          formSnapshot.forEach((doc) => {
+          for (const formDoc of formSnapshot.docs) {
+            const itemSnapshot = await getDocs(
+              collection(db, `users/${userDoc.id}/form/${formDoc.id}/item`)
+            );
             cardsData.push({
               userid: userDoc.id,
-              id: doc.id,
-              name: doc.data().info.name,
-              number: 4,
-              description: doc.data().info.description,
-              category: doc.data().info.category,
+              id: formDoc.id,
+              name: formDoc.data().info.name,
+              number: itemSnapshot.docs.length,
+              description: formDoc.data().info.description,
+              category: formDoc.data().info.category,
             });
-          });
+          }
+          // formSnapshot.forEach((doc) => {
+          // });
         }
       }
 
@@ -48,7 +53,7 @@ const CardContainer = () => {
   return (
     <FlatList
       data={cards}
-      renderItem={({ item }) => (
+      renderItem={({ item, index }) => (
         <Cards
           userid={item.userid}
           id={item.id}
