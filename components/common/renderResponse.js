@@ -1,27 +1,83 @@
-import { Text, StyleSheet, TextInput } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 
 import { COLORS, FONT } from "../../constants";
+import MyGraph from "../graph/MyGraph";
 
-export const renderResponse = (item, responseData) => {
-  return (
-    <>
-      <Text style={styles.questionTitle}>{item.title}</Text>
-      <Text style={styles.questionTitle}>{item.id}</Text>
-      {/* {responseData && responseData.map((e) => console.log(e.answer))}
-      {responseData && console.log(responseData.length)} */}
+//responseData id, answer, responder for answer
+//item id, type, title, options for question
+export const RenderResponse = ({ item, responseData }) => {
+  const responseAnswer = responseData.map((answer) => answer.answer[item.id]);
+  const colors = [
+    "#FFA5BA",
+    "#a3c6f8",
+    "#B6E2D4",
+    "#F8D5A3",
+    "#F5B7B1",
+    "#BDB2FA",
+    "#baffa5",
+  ];
 
-      {item.type === "shortAnswer" && <Text>shortAnswer</Text>}
+  if (item.type === "shortAnswer") {
+    return (
+      <View style={styles.constainer}>
+        <Text style={styles.questionTitle}>{item.title}</Text>
+        {responseData.map((response, index) => (
+          <Text key={index} style={styles.shortAnswer}>
+            {response.responder}
+            {" : "}
+            {response.answer[item.id]}
+          </Text>
+        ))}
+      </View>
+    );
+  } else if (item.type === "multipleAnswer" || item.type === "dropdown") {
+    const optionCounts = item.options.map((option, index) => {
+      return {
+        value: responseAnswer.reduce((count, answer) => {
+          return count + (answer === option.value ? 1 : 0);
+        }, 0),
 
-      {item.type === "multipleAnswer" && <Text>multipleAnswer</Text>}
-
-      {item.type === "checkbox" && <Text>checkbox</Text>}
-
-      {item.type === "dropdown" && <Text>dropdown</Text>}
-    </>
-  );
+        color: colors[index % colors.length],
+      };
+    });
+    return (
+      <View style={styles.constainer}>
+        <Text style={styles.questionTitle}>{item.title}</Text>
+        <MyGraph optionCounts={optionCounts} options={item.options} />
+      </View>
+    );
+  } else {
+    const optionCounts = item.options.map((option, index) => {
+      return {
+        value: responseAnswer.reduce((count, answerArray) => {
+          return (
+            count +
+            answerArray.reduce((innerCount, answer) => {
+              return innerCount + (answer === option.value ? 1 : 0);
+            }, 0)
+          );
+        }, 0),
+        color: colors[index % colors.length],
+      };
+    });
+    return (
+      <View style={styles.constainer}>
+        <Text style={styles.questionTitle}>{item.title}</Text>
+        <MyGraph optionCounts={optionCounts} options={item.options} />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
+  constainer: {
+    marginVertical: 5,
+    marginHorizontal: 15,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    backgroundColor: COLORS.primary,
+    borderRadius: 10,
+  },
   questionTitle: {
     fontFamily: FONT.h2,
     fontSize: 16,

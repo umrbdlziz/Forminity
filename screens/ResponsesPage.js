@@ -1,8 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 
-import Header from "../components";
-import { renderResponse, db } from "../components";
+import { Header, RenderResponse, db } from "../components";
 import { collection, getDocs } from "firebase/firestore";
 
 const ResponsesPage = ({ route }) => {
@@ -42,17 +41,20 @@ const ResponsesPage = ({ route }) => {
     };
     fetchResponses();
   }, []);
-
   return (
-    <View>
-      {responseData && console.log(responseData.length)}
-      <Header headerText={"hello"} />
-      <FlatList
-        data={question}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => renderResponse(item, responseData)}
-      />
-    </View>
+    responseData && (
+      <View>
+        <Header headerText={responseData.length + " responses"} />
+        <FlatList
+          data={question}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <RenderResponse item={item} responseData={responseData} />
+          )}
+          contentContainerStyle={{ paddingBottom: 130 }}
+        />
+      </View>
+    )
   );
 };
 

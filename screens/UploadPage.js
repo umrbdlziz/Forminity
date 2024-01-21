@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -46,19 +47,14 @@ const UploadPage = () => {
           collection(db, `users/userId/form/${formId}/response`)
         );
 
-        cardsData.push(
-          <CreatedCard
-            key={formId}
-            formId={formId}
-            title={formDoc.data().info.name}
-            number={responsesSnapshot.size}
-            desc={formDoc.data().info.description}
-          />
-        );
+        cardsData.push({
+          formID: formId,
+          title: formDoc.data().info.name,
+          number: responsesSnapshot.size,
+          desc: formDoc.data().info.description,
+        });
 
         temp += responsesSnapshot.size;
-        // for (const responseDoc of responsesSnapshot.docs) {
-        // }
       }
       setCards(cardsData);
       setTotalResponses(temp);
@@ -90,13 +86,19 @@ const UploadPage = () => {
           backgroundColor: COLORS.tertiary,
         }}
       />
-      <ScrollView contentContainerStyle={styles.card}>
-        <TouchableOpacity style={styles.createBtn} onPress={toggleOverlay}>
-          <Image source={icons.createNew} />
-          <Text style={styles.createBtnText}>Create New Form</Text>
-        </TouchableOpacity>
-        {cards}
-      </ScrollView>
+      <FlatList
+        ListHeaderComponent={
+          <TouchableOpacity style={styles.createBtn} onPress={toggleOverlay}>
+            <Image source={icons.createNew} />
+            <Text style={styles.createBtnText}>Create New Form</Text>
+          </TouchableOpacity>
+        }
+        data={cards}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <CreatedCard item={item} />}
+        // style={styles.card}
+        contentContainerStyle={styles.card}
+      />
       <Overlay
         isVisible={visible}
         onBackdropPress={toggleOverlay}

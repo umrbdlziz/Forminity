@@ -7,7 +7,7 @@ import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
 import { db } from "./firebase/config";
-import { renderResponse } from "./common/renderResponse";
+import { RenderResponse } from "./common/RenderResponse";
 
 export {
   BottomTabIcon,
@@ -20,6 +20,6 @@ export {
   Preview,
   DisplayCard,
   CreatedCard,
-  renderResponse,
+  RenderResponse,
   db,
 };

@@ -48,14 +48,38 @@ const App = () => {
           {hideSplashScreen ? (
             <Stack.Navigator
               initialRouteName="LoginPage"
-              screenOptions={{ headerShown: false }}
+              // screenOptions={{ headerShown: false }}
             >
-              <Stack.Screen name="UmarHebat" component={LoginPage} />
-              <Stack.Screen name="BottomTabsRoot" component={BottomTabsRoot} />
-              <Stack.Screen name="UploadPage" component={UploadPage} />
-              <Stack.Screen name="UploadPage2" component={UploadPage2} />
-              <Stack.Screen name="FillFormPage" component={FillFormPage} />
-              <Stack.Screen name="ResponsesPage" component={ResponsesPage} />
+              <Stack.Screen
+                name="LoginPage"
+                component={LoginPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="BottomTabsRoot"
+                component={BottomTabsRoot}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="UploadPage"
+                component={UploadPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="UploadPage2"
+                component={UploadPage2}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="FillFormPage"
+                component={FillFormPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ResponsesPage"
+                component={ResponsesPage}
+                options={{ headerTitle: "Responses" }}
+              />
             </Stack.Navigator>
           ) : (
             <SplashScreen />

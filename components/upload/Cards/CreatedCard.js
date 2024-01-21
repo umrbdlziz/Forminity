@@ -3,13 +3,13 @@ import { useNavigation } from "@react-navigation/native";
 
 import { COLORS, FONT, icons } from "../../../constants";
 
-const CreatedCard = ({ formId, title, desc, number }) => {
+const CreatedCard = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.displayCard}>
       <View style={styles.topDisplayCard}>
         <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
-          {title}
+          {item.title}
         </Text>
         <View style={styles.badge}>
           <Text style={styles.badgeText}>PUBLISHED</Text>
@@ -18,17 +18,18 @@ const CreatedCard = ({ formId, title, desc, number }) => {
 
       <View style={styles.completeDisplay}>
         <Image source={icons.complete} style={styles.img} />
-        <Text>{number}</Text>
-        {/* </View> */}
+        <Text>{item.number}</Text>
       </View>
       <View style={styles.desc}>
         <Text style={styles.descText} numberOfLines={3} ellipsizeMode="tail">
-          {desc}
+          {item.desc}
         </Text>
       </View>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate("ResponsesPage", { formId: formId })}
+        onPress={() =>
+          navigation.navigate("ResponsesPage", { formId: item.formID })
+        }
       >
         <Text style={styles.btnText}>View Submission</Text>
         <Image style={styles.btnImg} source={icons.rightArrow} />
