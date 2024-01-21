@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
-//Umar hebat was here
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
@@ -16,11 +15,15 @@ import {
   ResponsesPage,
 } from "../screens";
 import BottomTabsRoot from "../components/common/BottomTabsRoot";
+import { onAuthStateChanged } from "firebase/auth";
+import { FIREBASE_AUTH } from "../components/firebase/config";
+import { User } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
-
+// dsaadssdaasdsa
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const [fontsLoaded, error] = useFonts({
     "Rajdhani-Bold": require("../assets/fonts/Rajdhani-Bold.ttf"),
@@ -35,6 +38,10 @@ const App = () => {
     setTimeout(() => {
       setHideSplashScreen(true);
     }, 5000);
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log("user", user);
+      setUser(user);
+    });
   }, []);
 
   if (!fontsLoaded && !error) {
@@ -50,36 +57,41 @@ const App = () => {
               initialRouteName="LoginPage"
               // screenOptions={{ headerShown: false }}
             >
-              <Stack.Screen
-                name="LoginPage"
-                component={LoginPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="BottomTabsRoot"
-                component={BottomTabsRoot}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="UploadPage"
-                component={UploadPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="UploadPage2"
-                component={UploadPage2}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="FillFormPage"
-                component={FillFormPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="ResponsesPage"
-                component={ResponsesPage}
-                options={{ headerTitle: "Responses" }}
-              />
+              {user ? (
+                <>
+                  <Stack.Screen
+                    name="BottomTabsRoot"
+                    component={BottomTabsRoot}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="UploadPage"
+                    component={UploadPage}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="UploadPage2"
+                    component={UploadPage2}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="FillFormPage"
+                    component={FillFormPage}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="ResponsesPage"
+                    component={ResponsesPage}
+                    options={{ headerTitle: "Responses" }}
+                  />
+                </>
+              ) : (
+                <Stack.Screen
+                  name="LoginPage"
+                  component={LoginPage}
+                  options={{ headerShown: false }}
+                />
+              )}
             </Stack.Navigator>
           ) : (
             <SplashScreen />

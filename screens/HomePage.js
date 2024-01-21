@@ -6,7 +6,6 @@ import {
   Header,
   SearchBarContainer,
 } from "../components";
-
 const HomePage = () => {
   return (
     <SafeAreaView style={styles.container}>

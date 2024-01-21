@@ -6,7 +6,7 @@ import { Header } from "../components";
 const ProfilePage = () => {
   return (
     <View>
-      <Header headerText={"PROFILE"} />
+      <Header headerText={"HARIZ + KACAK"} />
     </View>
   );
 };

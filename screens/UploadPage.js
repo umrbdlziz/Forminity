@@ -16,10 +16,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setName, setDescription, addCategory } from "../redux/formSlice";
 
-import { Header, DisplayCard, CreatedCard, db } from "../components";
+import { Header, DisplayCard, CreatedCard, FIREBASE_DB } from "../components";
 import { COLORS, FONT, icons } from "../constants";
 
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore/lite";
 
 const UploadPage = () => {
   const navigation = useNavigation();
@@ -37,16 +37,16 @@ const UploadPage = () => {
 
   useEffect(() => {
     const fetchResponses = async () => {
-      const formsSnapshot = await getDocs(collection(db, `users/userId/form`));
+      const formsSnapshot = await getDocs(
+        collection(FIREBASE_DB, `users/userId/form`)
+      );
       const cardsData = [];
       setTotalForm(formsSnapshot.size);
       for (const formDoc of formsSnapshot.docs) {
         const formId = formDoc.id;
-
         const responsesSnapshot = await getDocs(
-          collection(db, `users/userId/form/${formId}/response`)
+          collection(FIREBASE_DB, `users/userId/form/${formId}/response`)
         );
-
         cardsData.push({
           formID: formId,
           title: formDoc.data().info.name,

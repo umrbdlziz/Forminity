@@ -1,8 +1,8 @@
 import { View, Text, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 
-import { Header, RenderResponse, db } from "../components";
-import { collection, getDocs } from "firebase/firestore";
+import { Header, RenderResponse, FIREBASE_DB } from "../components";
+import { collection, getDocs } from "firebase/firestore/lite";
 
 const ResponsesPage = ({ route }) => {
   const { formId } = route.params;
@@ -14,7 +14,7 @@ const ResponsesPage = ({ route }) => {
   useEffect(() => {
     const fetchResponses = async () => {
       const responseSnapshot = await getDocs(
-        collection(db, `users/userId/form/${formId}/response`)
+        collection(FIREBASE_DB, `users/userId/form/${formId}/response`)
       );
       for (const responseDoc of responseSnapshot.docs) {
         allResponse.push({
@@ -24,7 +24,7 @@ const ResponsesPage = ({ route }) => {
         });
       }
       const itemSnapshot = await getDocs(
-        collection(db, `users/userId/form/${formId}/item`)
+        collection(FIREBASE_DB, `users/userId/form/${formId}/item`)
       );
       for (const itemDoc of itemSnapshot.docs) {
         allQuestion.push({

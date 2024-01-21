@@ -6,7 +6,7 @@ import CardContainer from "./home/CardContainer";
 import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
-import { db } from "./firebase/config";
+import { FIREBASE_DB } from "./firebase/config";
 import { RenderResponse } from "./common/RenderResponse";
 
 export {
@@ -21,5 +21,5 @@ export {
   DisplayCard,
   CreatedCard,
   RenderResponse,
-  db,
+  FIREBASE_DB,
 };

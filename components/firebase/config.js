@@ -1,15 +1,18 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore/lite";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDrzOY7I1fzL6cCHzQ9xPN5qtjatZDVqcI",
-  authDomain: "firstproject-408306.firebaseapp.com",
-  projectId: "firstproject-408306",
-  storageBucket: "firstproject-408306.appspot.com",
-  messagingSenderId: "525543077982",
-  appId: "1:525543077982:web:f3a4cc0579cf99cfc4dccf",
-  measurementId: "G-YHLJ498C8M",
+  apiKey: "AIzaSyD_zyFuhZMB6zl86V_k9C-7eFOlOVDSr3A",
+  authDomain: "forminity-4a8dd.firebaseapp.com",
+  projectId: "forminity-4a8dd",
+  storageBucket: "forminity-4a8dd.appspot.com",
+  messagingSenderId: "1033154007968",
+  appId: "1:1033154007968:web:a87f9c5fd21719566fcac5",
 };
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+// Initialize Firebase
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+export const FIREBASE_DB = getFirestore(FIREBASE_APP);

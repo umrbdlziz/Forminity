@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore/lite";
 
 import { COLORS, FONT, icons } from "../../../constants";
-import { db } from "../../firebase/config";
+import { FIREBASE_DB } from "../../firebase/config";
 
 const CreatedCard = ({ item }) => {
   const navigation = useNavigation();
 
   const onDelete = async () => {
     try {
-      const formRef = doc(db, "users/userId/form", item.formID);
+      const formRef = doc(FIREBASE_DB, "users/userId/form", item.formID);
       await deleteDoc(formRef);
     } catch (error) {
       console.error("Error deleting document: ", error);

@@ -1,19 +1,66 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import { FIREBASE_AUTH } from "../components/firebase/config";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 import { COLORS, FONT, icons } from "../constants";
 import globalStyle from "../App/general.style";
+import { ActivityIndicator } from "react-native-paper";
 
 const LoginPage = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
+
+  const onButtonPress = () => {
+    // navigation.navigate("BottomTabsRoot", { screen: "HomePage" });
+    console.log("Hey");
+  };
+
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      alert("Check Your Email");
+    } catch (error) {
+      console.log(error);
+      alert("Sign In failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const signUp = async () => {
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+      alert("Check Your Email");
+    } catch (error) {
+      console.log(error);
+      alert("Sign In failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={style.container}>
@@ -21,33 +68,40 @@ const LoginPage = () => {
       <View style={style.inputContainer}>
         <Image source={icons.username} style={style.icon} />
         <TextInput
-          placeholder="Username"
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          placeholder="Email"
           placeholderTextColor={COLORS.secondaryTextIcon}
+          autoCapitalize="none"
           style={style.txInput}
         />
       </View>
       <View style={style.inputContainer}>
         <Image source={icons.password} style={style.icon} />
         <TextInput
+          value={password}
+          onChangeText={(password) => setPassword(password)}
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor={COLORS.secondaryTextIcon}
           style={style.txInput}
         />
       </View>
-      <View style={style.BtnContainer}>
-        <TouchableOpacity
-          style={[globalStyle.Btn, globalStyle.shadow]}
-          onPress={() =>
-            navigation.navigate("BottomTabsRoot", { screen: "HomePage" })
-          }
-        >
-          <Text style={globalStyle.textBtn}>LOGIN</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={style.signUp}>Sign Up</Text>
-        </TouchableOpacity>
-      </View>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <View style={style.BtnContainer}>
+          <TouchableOpacity
+            style={[globalStyle.Btn, globalStyle.shadow]}
+            onPress={signIn}
+          >
+            <Text style={globalStyle.textBtn}>LOGIN</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={signUp}>
+            <Text style={style.signUp}>Create new account</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

@@ -6,8 +6,8 @@ import { clearItem } from "../../../redux/itemSlice";
 
 import { FONT, COLORS } from "../../../constants";
 
-import { db } from "../../firebase/config";
-import { collection, doc, addDoc, setDoc } from "firebase/firestore";
+import { FIREBASE_DB } from "../../firebase/config";
+import { collection, doc, addDoc, setDoc } from "firebase/firestore/lite";
 
 const SaveBtn = () => {
   const navigation = useNavigation();
@@ -17,15 +17,18 @@ const SaveBtn = () => {
 
   const onCreate = async () => {
     try {
-      const docRef = await addDoc(collection(db, "users/userId/form"), {
-        info: forms,
-      });
+      const docRef = await addDoc(
+        collection(FIREBASE_DB, "users/userId/form"),
+        {
+          info: forms,
+        }
+      );
       for (const item of items) {
         if (item.options === undefined) {
           item.options = [];
         }
         await setDoc(
-          doc(db, `users/userId/form/${docRef.id}/item`, item.id),
+          doc(FIREBASE_DB, `users/userId/form/${docRef.id}/item`, item.id),
           item
         );
         dispatch(clearItem());

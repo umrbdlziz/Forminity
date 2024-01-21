@@ -15,8 +15,8 @@ import { COLORS, FONT } from "../constants";
 import globalStyle from "../App/general.style";
 import { renderForms } from "../components/common/renderForms";
 
-import { db } from "../components/firebase/config";
-import { doc, addDoc, collection, getDocs } from "firebase/firestore";
+import { FIREBASE_DB } from "../components/firebase/config";
+import { doc, addDoc, collection, getDocs } from "firebase/firestore/lite";
 
 const FillFormPage = () => {
   const [question, setQuestion] = useState([]);
@@ -28,7 +28,10 @@ const FillFormPage = () => {
   useEffect(() => {
     const fetchForms = async () => {
       const querySnapshot = await getDocs(
-        collection(db, `users/${forms.userid}/form/${forms.formId}/item`)
+        collection(
+          FIREBASE_DB,
+          `users/${forms.userid}/form/${forms.formId}/item`
+        )
       );
       querySnapshot.forEach((doc) => {
         allQuestion.push({
@@ -47,7 +50,10 @@ const FillFormPage = () => {
   const onSubmit = async (data) => {
     try {
       const docRef = await addDoc(
-        collection(db, `users/${forms.userid}/form/${forms.formId}/response`),
+        collection(
+          FIREBASE_DB,
+          `users/${forms.userid}/form/${forms.formId}/response`
+        ),
         {
           userId: forms.userid,
           answer: data,

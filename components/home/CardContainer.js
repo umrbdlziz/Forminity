@@ -10,8 +10,8 @@ import {
 } from "../../redux/displaySlice";
 
 import Cards from "../../components/home/Cards";
-import { db } from "../firebase/config";
-import { collection, getDocs } from "firebase/firestore";
+import { FIREBASE_DB } from "../firebase/config";
+import { collection, getDocs } from "firebase/firestore/lite";
 
 const CardContainer = () => {
   const [cards, setCards] = useState([]);
@@ -19,33 +19,39 @@ const CardContainer = () => {
   useEffect(() => {
     const fetchCards = async () => {
       const currentUserId = "userId"; // Replace this with your current user's ID
-      const userSnapshot = await getDocs(collection(db, "users"));
-      const cardsData = [];
+      try {
+        const userSnapshot = await getDocs(collection(FIREBASE_DB, "users"));
+        const cardsData = [];
 
-      for (const userDoc of userSnapshot.docs) {
-        if (userDoc.id !== currentUserId) {
-          const formSnapshot = await getDocs(
-            collection(db, `users/${userDoc.id}/form`)
-          );
-          for (const formDoc of formSnapshot.docs) {
-            const itemSnapshot = await getDocs(
-              collection(db, `users/${userDoc.id}/form/${formDoc.id}/item`)
+        for (const userDoc of userSnapshot.docs) {
+          if (userDoc.id !== currentUserId) {
+            const formSnapshot = await getDocs(
+              collection(FIREBASE_DB, `users/${userDoc.id}/form`)
             );
-            cardsData.push({
-              userid: userDoc.id,
-              id: formDoc.id,
-              name: formDoc.data().info.name,
-              number: itemSnapshot.docs.length,
-              description: formDoc.data().info.description,
-              category: formDoc.data().info.category,
-            });
+            for (const formDoc of formSnapshot.docs) {
+              const itemSnapshot = await getDocs(
+                collection(
+                  FIREBASE_DB,
+                  `users/${userDoc.id}/form/${formDoc.id}/item`
+                )
+              );
+              cardsData.push({
+                userid: userDoc.id,
+                id: formDoc.id,
+                name: formDoc.data().info.name,
+                number: itemSnapshot.docs.length,
+                description: formDoc.data().info.description,
+                category: formDoc.data().info.category,
+              });
+            }
+            // formSnapshot.forEach((doc) => {
+            // });
           }
-          // formSnapshot.forEach((doc) => {
-          // });
         }
+        setCards(cardsData);
+      } catch (e) {
+        console.error("Error at card container: ", e);
       }
-
-      setCards(cardsData);
     };
 
     fetchCards();

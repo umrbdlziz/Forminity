@@ -11,7 +11,7 @@ const SearchBarContainer = () => {
       <View style={styles.textInput}>
         <TextInput
           style={styles.text}
-          onChangeText={() => {}}
+          onChangeText={() => navigation.navigate("LoginPage")}
           placeholder="What are you looking for?"
         />
       </View>
