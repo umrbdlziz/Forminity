@@ -8,6 +8,7 @@ import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
 import { FIREBASE_DB } from "./firebase/config";
 import { RenderResponse } from "./common/RenderResponse";
+import Cards from "./leaderboard/Cards";
 
 export {
   BottomTabIcon,
@@ -22,4 +23,5 @@ export {
   CreatedCard,
   RenderResponse,
   FIREBASE_DB,
+  Cards,
 };

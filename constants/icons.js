@@ -17,6 +17,9 @@ import complete from "../assets/icons/complete.png";
 import createNew from "../assets/icons/createNew.png";
 import rightArrow from "../assets/icons/rightArrow.png";
 import close from "../assets/icons/close.png";
+import firsPlace from "../assets/icons/firstPlace.png";
+import secondPlace from "../assets/icons/secondPlace.png";
+import thirdPlace from "../assets/icons/thirdPlace.png";
 
 export default {
   search,
@@ -38,4 +41,7 @@ export default {
   createNew,
   rightArrow,
   close,
+  firsPlace,
+  secondPlace,
+  thirdPlace,
 };
