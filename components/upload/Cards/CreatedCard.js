@@ -1,12 +1,25 @@
+import { useEffect } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { doc, deleteDoc } from "firebase/firestore";
 
 import { COLORS, FONT, icons } from "../../../constants";
+import { db } from "../../firebase/config";
 
 const CreatedCard = ({ item }) => {
   const navigation = useNavigation();
+
+  const onDelete = async () => {
+    try {
+      const formRef = doc(db, "users/userId/form", item.formID);
+      await deleteDoc(formRef);
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+
   return (
-    <View style={styles.displayCard}>
+    <View key={item.formID} style={styles.displayCard}>
       <View style={styles.topDisplayCard}>
         <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
           {item.title}
@@ -33,6 +46,9 @@ const CreatedCard = ({ item }) => {
       >
         <Text style={styles.btnText}>View Submission</Text>
         <Image style={styles.btnImg} source={icons.rightArrow} />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.deleteBtn} onPress={onDelete}>
+        <Text style={styles.deleteBtnText}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
@@ -119,5 +135,18 @@ const styles = StyleSheet.create({
   btnImg: {
     width: 15,
     height: 15,
+  },
+  deleteBtn: {
+    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    borderRadius: 10,
+    borderColor: COLORS.err,
+    borderWidth: 0.2,
+    paddingVertical: 5,
+  },
+  deleteBtnText: {
+    fontFamily: FONT.text,
+    fontSize: 14,
+    color: COLORS.err,
   },
 });

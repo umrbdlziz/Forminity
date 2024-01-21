@@ -60,7 +60,7 @@ const UploadPage = () => {
       setTotalResponses(temp);
     };
     fetchResponses();
-  }, []);
+  }, [cards]);
 
   return (
     <View style={styles.container}>
@@ -94,9 +94,8 @@ const UploadPage = () => {
           </TouchableOpacity>
         }
         data={cards}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.formID}
         renderItem={({ item }) => <CreatedCard item={item} />}
-        // style={styles.card}
         contentContainerStyle={styles.card}
       />
       <Overlay
