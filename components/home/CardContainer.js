@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { useDispatch } from "react-redux";
-import {
-  setFormId,
-  setName,
-  setDescription,
-  addCategory,
-} from "../../redux/displaySlice";
+import { useSelector } from "react-redux";
 
 import Cards from "../../components/home/Cards";
 import { FIREBASE_DB } from "../firebase/config";
@@ -15,10 +9,13 @@ import { collection, getDocs } from "firebase/firestore/lite";
 
 const CardContainer = () => {
   const [cards, setCards] = useState([]);
+  const uid = useSelector((state) => state.uid.value);
 
   useEffect(() => {
     const fetchCards = async () => {
-      const currentUserId = "userId"; // Replace this with your current user's ID
+      const currentUserId = uid; // Replace this with your current user's ID
+      console.log(currentUserId);
+
       try {
         const userSnapshot = await getDocs(collection(FIREBASE_DB, "users"));
         const cardsData = [];
@@ -44,8 +41,6 @@ const CardContainer = () => {
                 category: formDoc.data().info.category,
               });
             }
-            // formSnapshot.forEach((doc) => {
-            // });
           }
         }
         setCards(cardsData);
@@ -53,9 +48,10 @@ const CardContainer = () => {
         console.error("Error at card container: ", e);
       }
     };
-
-    fetchCards();
-  }, []);
+    if (uid) {
+      fetchCards();
+    }
+  }, [uid]);
   return (
     <FlatList
       data={cards}

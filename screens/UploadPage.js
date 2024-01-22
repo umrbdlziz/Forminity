@@ -13,7 +13,7 @@ import {
   FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setName, setDescription, addCategory } from "../redux/formSlice";
 
 import { Header, DisplayCard, CreatedCard, FIREBASE_DB } from "../components";
@@ -35,17 +35,18 @@ const UploadPage = () => {
   const [totalResponses, setTotalResponses] = useState(0);
   let temp = 0;
 
+  const uid = useSelector((state) => state.uid.value);
   useEffect(() => {
     const fetchResponses = async () => {
       const formsSnapshot = await getDocs(
-        collection(FIREBASE_DB, `users/userId/form`)
+        collection(FIREBASE_DB, `users/${uid}/form`)
       );
       const cardsData = [];
       setTotalForm(formsSnapshot.size);
       for (const formDoc of formsSnapshot.docs) {
         const formId = formDoc.id;
         const responsesSnapshot = await getDocs(
-          collection(FIREBASE_DB, `users/userId/form/${formId}/response`)
+          collection(FIREBASE_DB, `users/${uid}/form/${formId}/response`)
         );
         cardsData.push({
           formID: formId,
@@ -61,7 +62,6 @@ const UploadPage = () => {
     };
     fetchResponses();
   }, [cards]);
-
   return (
     <View style={styles.container}>
       <Header headerText={"UPLOAD"} />

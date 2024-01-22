@@ -1,10 +1,13 @@
 import { View, Text, FlatList } from "react-native";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { Header, RenderResponse, FIREBASE_DB } from "../components";
+
 import { collection, getDocs } from "firebase/firestore/lite";
 
 const ResponsesPage = ({ route }) => {
+  const uid = useSelector((state) => state.uid.value);
   const { formId } = route.params;
   const [responseData, setResponseData] = useState();
   const [question, setQuestion] = useState();
@@ -14,7 +17,7 @@ const ResponsesPage = ({ route }) => {
   useEffect(() => {
     const fetchResponses = async () => {
       const responseSnapshot = await getDocs(
-        collection(FIREBASE_DB, `users/userId/form/${formId}/response`)
+        collection(FIREBASE_DB, `users/${uid}/form/${formId}/response`)
       );
       for (const responseDoc of responseSnapshot.docs) {
         allResponse.push({
@@ -24,7 +27,7 @@ const ResponsesPage = ({ route }) => {
         });
       }
       const itemSnapshot = await getDocs(
-        collection(FIREBASE_DB, `users/userId/form/${formId}/item`)
+        collection(FIREBASE_DB, `users/${uid}/form/${formId}/item`)
       );
       for (const itemDoc of itemSnapshot.docs) {
         allQuestion.push({

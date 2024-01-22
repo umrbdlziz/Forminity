@@ -9,6 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
+import { useDispatch } from "react-redux";
+import { SET_USER_ID } from "../redux/uidSlice";
+
 import { FIREBASE_AUTH } from "../components/firebase/config";
 import {
   signInWithEmailAndPassword,
@@ -26,12 +30,13 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
+  const dispatch = useDispatch();
 
   const signIn = async () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
+      dispatch(SET_USER_ID(response.user.uid));
     } catch (error) {
       console.log(error);
       if (error.code === "auth/invalid-credential") {

@@ -13,12 +13,13 @@ const SaveBtn = () => {
   const navigation = useNavigation();
   const items = useSelector((state) => state.item);
   const forms = useSelector((state) => state.form);
+  const uid = useSelector((stete) => stete.uid.value);
   const dispatch = useDispatch();
 
   const onCreate = async () => {
     try {
       const docRef = await addDoc(
-        collection(FIREBASE_DB, "users/userId/form"),
+        collection(FIREBASE_DB, `users/${uid}/form`),
         {
           info: forms,
         }
@@ -28,7 +29,7 @@ const SaveBtn = () => {
           item.options = [];
         }
         await setDoc(
-          doc(FIREBASE_DB, `users/userId/form/${docRef.id}/item`, item.id),
+          doc(FIREBASE_DB, `users/${uid}/form/${docRef.id}/item`, item.id),
           item
         );
         dispatch(clearItem());
