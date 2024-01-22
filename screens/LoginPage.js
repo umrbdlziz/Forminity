@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -12,7 +12,8 @@ import {
 import { FIREBASE_AUTH } from "../components/firebase/config";
 import {
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 
 import { COLORS, FONT, icons } from "../constants";
@@ -26,41 +27,33 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
 
-  const onButtonPress = () => {
-    // navigation.navigate("BottomTabsRoot", { screen: "HomePage" });
-    console.log("Hey");
-  };
-
   const signIn = async () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
-      alert("Check Your Email");
     } catch (error) {
       console.log(error);
-      alert("Sign In failed: " + error.message);
+      if (error.code === "auth/invalid-credential") {
+        alert("Its either your password is incorrect or You are not regitered");
+      } else alert(error.code);
     } finally {
       setLoading(false);
     }
   };
-  const signUp = async () => {
-    setLoading(true);
-    try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(response);
-      alert("Check Your Email");
-    } catch (error) {
-      console.log(error);
-      alert("Sign In failed: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (!user.emailVerified) {
+          alert("Please verify your email before logging in.");
+          signOut(auth);
+        }
+      } else {
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <View style={style.container}>
@@ -84,6 +77,7 @@ const LoginPage = () => {
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor={COLORS.secondaryTextIcon}
+          autoCapitalize="none"
           style={style.txInput}
         />
       </View>
@@ -97,7 +91,7 @@ const LoginPage = () => {
           >
             <Text style={globalStyle.textBtn}>LOGIN</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={signUp}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUpPage")}>
             <Text style={style.signUp}>Create new account</Text>
           </TouchableOpacity>
         </View>

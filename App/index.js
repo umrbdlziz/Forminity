@@ -13,6 +13,7 @@ import {
   UploadPage2,
   FillFormPage,
   ResponsesPage,
+  SignUpPage,
 } from "../screens";
 import BottomTabsRoot from "../components/common/BottomTabsRoot";
 import { onAuthStateChanged } from "firebase/auth";
@@ -20,7 +21,6 @@ import { FIREBASE_AUTH } from "../components/firebase/config";
 import { User } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
-// dsaadssdaasdsa
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
   const [user, setUser] = useState(null);
@@ -86,11 +86,18 @@ const App = () => {
                   />
                 </>
               ) : (
-                <Stack.Screen
-                  name="LoginPage"
-                  component={LoginPage}
-                  options={{ headerShown: false }}
-                />
+                <>
+                  <Stack.Screen
+                    name="LoginPage"
+                    component={LoginPage}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="SignUpPage"
+                    component={SignUpPage}
+                    // options={{ headerShown: false }}
+                  />
+                </>
               )}
             </Stack.Navigator>
           ) : (
