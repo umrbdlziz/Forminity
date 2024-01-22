@@ -9,17 +9,19 @@ import {
   ScrollView,
 } from "react-native";
 import { Header } from "../components";
+import { SignUpBtn } from "../components/upload/Btn";
 
 import { COLORS, FONT, icons } from "../constants";
 import globalStyle from "../App/general.style";
 
-import { FIREBASE_AUTH } from "../components/firebase/config";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../components/firebase/config";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
 
 import { ActivityIndicator } from "react-native-paper";
+import { doc, setDoc } from "firebase/firestore/lite";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
@@ -31,6 +33,9 @@ const SignUpPage = () => {
   const [school, setSchool] = useState("");
   const [desasiswa, setDesasiswa] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [userId, setUserId] = useState(null);
+
   const auth = FIREBASE_AUTH;
 
   const signUp = async () => {
@@ -51,14 +56,27 @@ const SignUpPage = () => {
       );
       return;
     }
+
     try {
-      const response = await createUserWithEmailAndPassword(
+      const { user } = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      await sendEmailVerification(response.user);
-      console.log(response);
+      await sendEmailVerification(user);
+
+      console.log(user);
+      const userDocRef = doc(FIREBASE_DB, "users", user.uid);
+
+      await setDoc(userDocRef, {
+        email: email,
+        fullName: fullName,
+        username: username,
+        matric: matric,
+        school: school,
+        desasiswa: desasiswa,
+        password: password,
+      });
     } catch (error) {
       console.log(error);
       if (error.code === "auth/email-already-in-use") {
@@ -95,7 +113,6 @@ const SignUpPage = () => {
           style={style.txInput}
         />
       </View>
-
       <View style={style.inputContainer}>
         <Text style={style.txTitle}>Username: </Text>
 
@@ -170,14 +187,16 @@ const SignUpPage = () => {
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <View style={style.BtnContainer}>
-          <TouchableOpacity
-            style={[globalStyle.Btn, globalStyle.shadow]}
-            onPress={signUp}
-          >
-            <Text style={globalStyle.textBtn}>SIGNUP</Text>
-          </TouchableOpacity>
-        </View>
+        <>
+          <View style={style.BtnContainer}>
+            <TouchableOpacity
+              style={[globalStyle.Btn, globalStyle.shadow]}
+              onPress={signUp}
+            >
+              <Text style={globalStyle.textBtn}>SIGNUP</Text>
+            </TouchableOpacity>
+          </View>
+        </>
       )}
     </ScrollView>
   );
