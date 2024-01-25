@@ -39,13 +39,18 @@ const History = () => {
                 form.formId == response.data().formId
                   ? responseIds.push({
                       userId: response.data().userId,
+                      timestamp: `${response
+                        .data()
+                        .timestamp.toDate()
+                        .getFullYear()}-${
+                        response.data().timestamp.toDate().getMonth() + 1
+                      }-${response.data().timestamp.toDate().getDate()}`,
                       formId: form.formId,
                       formName: form.formName,
                       formDescription: form.formDescription,
                       formCategory: form.formCategory,
                     })
                   : null;
-                // console.log(form.formId, " => ", response.data().formId);
               });
             }
           }
@@ -65,6 +70,7 @@ const History = () => {
         renderItem={({ item, index }) => (
           <View>
             <Text style={styles.txInfo}>{item.formName}</Text>
+            <Text style={styles.txInfo}>{item.timestamp}</Text>
           </View>
         )}
         contentContainerStyle={styles.container}

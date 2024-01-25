@@ -24,6 +24,7 @@ import {
   getDocs,
   getDoc,
   updateDoc,
+  serverTimestamp,
 } from "firebase/firestore/lite";
 
 const FillFormPage = () => {
@@ -66,11 +67,13 @@ const FillFormPage = () => {
         {
           userId: forms.userid,
           answer: data,
+          timestamp: serverTimestamp(),
         }
       );
       await addDoc(collection(FIREBASE_DB, `users/${currentUserId}/response`), {
         formId: forms.formId,
         userId: forms.userid,
+        timestamp: serverTimestamp(),
       });
       const userSnap = await getDoc(doc(FIREBASE_DB, `users`, currentUserId));
       const currentPoints = userSnap.data().point;
