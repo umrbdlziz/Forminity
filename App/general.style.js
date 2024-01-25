@@ -9,6 +9,13 @@ const globalStyle = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
   },
+  Btn2: {
+    backgroundColor: COLORS.err,
+    width: 300,
+    height: 45,
+    borderRadius: 10,
+    justifyContent: "center",
+  },
   shadow: {
     shadowColor: "rgba(0 0 0 0.3)",
     shadowOffset: {

@@ -21,7 +21,7 @@ const History = () => {
   const [cards, setCards] = useState([]);
   const currentUserId = useSelector((state) => state.uid.value);
   const allUsers = useSelector((state) => state.users.value);
-
+  let temp = "";
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -30,8 +30,10 @@ const History = () => {
             const responseSnapshot = await getDocs(
               collection(FIREBASE_DB, `users/${userDoc.id}/response`)
             );
+            console.log(responseSnapshot.docs);
             for (const response of responseSnapshot.docs) {
               console.log(response.data().userId);
+              temp = response;
             }
           }
         }
@@ -42,16 +44,9 @@ const History = () => {
     fetchCards();
   }, []);
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <FlatList
-        data={cards}
-        renderItem={({ item, index }) => (
-          <View>{/* <Text style={styles.txInfo}>{item.userid}</Text> */}</View>
-        )}
-        style={styles.infoContainer}
-        contentContainerStyle={styles.scrollview}
-      />
-    </ScrollView>
+    <View style={styles.container}>
+      <Text>{temp}</Text>
+    </View>
   );
 };
 export default History;
@@ -59,6 +54,7 @@ export default History;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.background,
+
     display: "flex",
     position: "relative",
     flexDirection: "column",

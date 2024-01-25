@@ -14,8 +14,11 @@ import globalStyle from "../../../App/general.style";
 
 import { COLORS, FONT, icons } from "../../../constants";
 import { Header } from "../../home/Header";
-import { FIREBASE_DB } from "../../firebase/config";
-import { doc, collection, getDoc } from "firebase/firestore/lite";
+
+import { updatePassword } from "firebase/auth";
+
+import { FIREBASE_DB, FIREBASE_AUTH } from "../../firebase/config";
+import { doc, collection, getDoc, updateDoc } from "firebase/firestore/lite";
 import { useSelector } from "react-redux";
 
 const UpdateProfile = () => {
@@ -30,6 +33,7 @@ const UpdateProfile = () => {
 
   const uid = useSelector((state) => state.uid.value);
   const [userData, setUserData] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -48,8 +52,58 @@ const UpdateProfile = () => {
     };
     fetchUserData();
   }, [uid]);
+  const logout = async () => {
+    try {
+      await FIREBASE_AUTH.signOut();
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+  const update = async () => {
+    try {
+      // Check if the password and confirmation password match
+      if (password !== confirmPassword) {
+        alert(
+          "Passwords do not match. Please enter the same password in both fields."
+        );
+        return;
+      }
 
-  const update = async () => {};
+      // Update the user information in Firebase
+      const user = FIREBASE_AUTH.currentUser;
+
+      // Check if the user is authenticated
+      if (user) {
+        // If a new password is provided, update the password
+        if (password) {
+          await updatePassword(user, password);
+        }
+
+        const userDocRef = doc(FIREBASE_DB, "users", uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+
+        if (userDocSnapshot.exists()) {
+          // Update other fields in the user document
+          await updateDoc(userDocRef, {
+            username: username || userDocSnapshot.data().username,
+            school: school || userDocSnapshot.data().school,
+            desasiswa: desasiswa || userDocSnapshot.data().desasiswa,
+            // Add other fields you want to update
+          });
+
+          alert("Profile updated successfully!");
+        } else {
+          console.log("User document not found");
+        }
+      } else {
+        alert("User not authenticated");
+      }
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      // Handle errors
+      alert("Error updating user profile. Please try again.");
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -148,6 +202,12 @@ const UpdateProfile = () => {
         onPress={update}
       >
         <Text style={globalStyle.textBtn}>UPDATE</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[globalStyle.Btn2, globalStyle.shadow]}
+        onPress={logout}
+      >
+        <Text style={globalStyle.textBtn}>LOG OUT</Text>
       </TouchableOpacity>
     </ScrollView>
   );
