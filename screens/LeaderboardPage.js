@@ -17,12 +17,13 @@ const LeaderboardPage = () => {
     school:
     username:
   } */
+  const sortedUsers = [...users].sort((a, b) => b.data.point - a.data.point);
 
   return (
     <View style={styles.container}>
       <Header headerText={"LEADERBOARD"} />
       <FlatList
-        data={users}
+        data={sortedUsers}
         renderItem={({ item, index }) => (
           <Cards
             name={item.data.username}
@@ -30,7 +31,7 @@ const LeaderboardPage = () => {
             index={index}
           />
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.matric}
         contentContainerStyle={styles.flatlist}
       />
     </View>

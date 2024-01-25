@@ -1,6 +1,13 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, TextInput, StyleSheet, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
 
 import { COLORS, FONT, icons } from "../../constants";
 
@@ -15,7 +22,9 @@ const SearchBarContainer = ({ setSearchTerm }) => {
           placeholder="What are you looking for?"
         />
       </View>
-      <Image source={icons.search} style={styles.searchIcon} />
+      <TouchableOpacity onPress={() => Keyboard.dismiss()}>
+        <Image source={icons.search} style={styles.searchIcon} />
+      </TouchableOpacity>
     </View>
   );
 };

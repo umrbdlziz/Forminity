@@ -23,8 +23,9 @@ const History = () => {
   const currentUserId = useSelector((state) => state.uid.value);
   const allForm = useSelector((state) => state.allForm.value);
   const allUsers = useSelector((state) => state.users.value);
-  console.log(allForm[0].formCategory);
+
   useEffect(() => {
+    const responseIds = [];
     const fetchCards = async () => {
       try {
         for (const userDoc of allUsers) {
@@ -33,30 +34,37 @@ const History = () => {
               collection(FIREBASE_DB, `users/${userDoc.id}/response`)
             );
 
-            const responseIds = [];
-            console.log(responseSnapshot.docs);
             for (const response of responseSnapshot.docs) {
-              responseIds.push(response.data());
+              allForm.map((form) => {
+                form.formId == response.data().formId
+                  ? responseIds.push({
+                      userId: response.data().userId,
+                      formId: form.formId,
+                      formName: form.formName,
+                      formDescription: form.formDescription,
+                      formCategory: form.formCategory,
+                    })
+                  : null;
+                // console.log(form.formId, " => ", response.data().formId);
+              });
             }
-
-            setResponseID(responseIds);
-            console.log(responseID);
           }
         }
       } catch (e) {
         console.error("Error at card container: ", e);
       }
+      setResponseID(responseIds);
     };
     fetchCards();
   }, [currentUserId, allUsers]);
+
   return (
     <View style={styles.container}>
       <FlatList
         data={responseID}
         renderItem={({ item, index }) => (
           <View>
-            <Text style={styles.txInfo}>{item.userId}</Text>
-            <Text style={styles.txInfo}>{item.formId}</Text>
+            <Text style={styles.txInfo}>{item.formName}</Text>
           </View>
         )}
         contentContainerStyle={styles.container}
