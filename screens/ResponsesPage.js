@@ -48,14 +48,14 @@ const ResponsesPage = ({ route }) => {
     responseData && (
       <View>
         <Header headerText={responseData.length + " responses"} />
-        <FlatList
+        {/* <FlatList
           data={question}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <RenderResponse item={item} responseData={responseData} />
           )}
           contentContainerStyle={{ paddingBottom: 130 }}
-        />
+        /> */}
       </View>
     )
   );

@@ -1,13 +1,11 @@
 import { Divider } from "react-native-paper";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet } from "react-native";
 
 import { FONT, COLORS } from "../../../constants";
 import { AddBtn, SaveBtn } from "../Btn";
 import RenderFormsBuilder from "../render/RenderFormsBuilder";
 
 const BuilderQuestion = () => {
-  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Divider

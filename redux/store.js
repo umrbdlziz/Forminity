@@ -3,6 +3,7 @@ import itemReducer from "./itemSlice";
 import formReducer from "./formSlice";
 import displayReducer from "./displaySlice";
 import uidReducer from "./uidSlice";
+import usersReducer from "./usersSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     form: formReducer,
     display: displayReducer,
     uid: uidReducer,
+    users: usersReducer,
   },
 });
 

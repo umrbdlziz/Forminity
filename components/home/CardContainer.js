@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_USERS } from "../../redux/usersSlice";
 
 import Cards from "../../components/home/Cards";
 import { FIREBASE_DB } from "../firebase/config";
@@ -10,48 +11,42 @@ import { collection, getDocs } from "firebase/firestore/lite";
 const CardContainer = () => {
   const [cards, setCards] = useState([]);
   const uid = useSelector((state) => state.uid.value);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const fetchCards = async () => {
-  //     const currentUserId = uid; // Replace this with your current user's ID
-  //     console.log(currentUserId);
+  useEffect(() => {
+    const fetchCards = async () => {
+      const currentUserId = uid; // Replace this with your current user's ID
 
-  //     try {
-  //       const userSnapshot = await getDocs(collection(FIREBASE_DB, "users"));
-  //       const cardsData = [];
+      try {
+        const userSnapshot = await getDocs(collection(FIREBASE_DB, "users"));
+        const cardsData = [];
 
-  //       for (const userDoc of userSnapshot.docs) {
-  //         if (userDoc.id !== currentUserId) {
-  //           const formSnapshot = await getDocs(
-  //             collection(FIREBASE_DB, `users/${userDoc.id}/form`)
-  //           );
-  //           for (const formDoc of formSnapshot.docs) {
-  //             const itemSnapshot = await getDocs(
-  //               collection(
-  //                 FIREBASE_DB,
-  //                 `users/${userDoc.id}/form/${formDoc.id}/item`
-  //               )
-  //             );
-  //             cardsData.push({
-  //               userid: userDoc.id,
-  //               id: formDoc.id,
-  //               name: formDoc.data().info.name,
-  //               number: itemSnapshot.docs.length,
-  //               description: formDoc.data().info.description,
-  //               category: formDoc.data().info.category,
-  //             });
-  //           }
-  //         }
-  //       }
-  //       setCards(cardsData);
-  //     } catch (e) {
-  //       console.error("Error at card container: ", e);
-  //     }
-  //   };
-  //   if (uid) {
-  //     fetchCards();
-  //   }
-  // }, [uid]);
+        for (const userDoc of userSnapshot.docs) {
+          dispatch(SET_USERS({ id: userDoc.id, data: userDoc.data() }));
+          if (userDoc.id !== currentUserId) {
+            const formSnapshot = await getDocs(
+              collection(FIREBASE_DB, `users/${userDoc.id}/form`)
+            );
+            for (const formDoc of formSnapshot.docs) {
+              cardsData.push({
+                userid: userDoc.id,
+                id: formDoc.id,
+                name: formDoc.data().info.name,
+                description: formDoc.data().info.description,
+                category: formDoc.data().info.category,
+              });
+            }
+          }
+        }
+        setCards(cardsData);
+      } catch (e) {
+        console.error("Error at card container: ", e);
+      }
+    };
+    if (uid) {
+      fetchCards();
+    }
+  }, [uid]);
   return (
     <FlatList
       data={cards}
@@ -61,7 +56,6 @@ const CardContainer = () => {
           id={item.id}
           title={item.name}
           desc={item.description}
-          qNum={item.number}
           category={item.category}
         />
       )}

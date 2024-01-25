@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+
 import { useSelector } from "react-redux";
 
 import globalStyle from "../../../App/general.style";
@@ -15,61 +16,31 @@ import globalStyle from "../../../App/general.style";
 import { COLORS, FONT, icons } from "../../../constants";
 import { FIREBASE_DB } from "../../firebase/config";
 import { doc, collection, getDocs } from "firebase/firestore/lite";
+
 const History = () => {
   const [cards, setCards] = useState([]);
-  const uid = useSelector((state) => state.uid.value);
+  const currentUserId = useSelector((state) => state.uid.value);
+  const allUsers = useSelector((state) => state.users.value);
+
   useEffect(() => {
     const fetchCards = async () => {
-      const currentUserId = uid; // Replace this with your current user's ID
-      console.log(currentUserId);
-
       try {
-        const userSnapshot = await getDocs(collection(FIREBASE_DB, "users"));
-        const cardsData = [];
-
-        for (const userDoc of userSnapshot.docs) {
+        for (const userDoc of allUsers) {
           if (userDoc.id == currentUserId) {
-            const formSnapshot = await getDocs(
-              collection(FIREBASE_DB, `users/${userDoc.id}/form/`)
+            const responseSnapshot = await getDocs(
+              collection(FIREBASE_DB, `users/${userDoc.id}/response`)
             );
-            for (const formDoc of formSnapshot.docs) {
-              const itemSnapshot = await getDocs(
-                collection(
-                  FIREBASE_DB,
-                  `users/${userDoc.id}/form/${formDoc.id}/response`
-                )
-              );
-
-              for (const responseDoc of responseSnapshot.docs) {
-                const responseSnapshot = await getDocs(
-                  doc(
-                    FIREBASE_DB,
-                    `users/${userDoc.id}/form/${formDoc.id}/response/${responseDoc.id}`
-                  )
-                );
-                console.log(responseDoc.id);
-
-                // cardsData.push({
-                //   userid: userDoc.id,
-                //   id: formDoc.id,
-                //   name: formDoc.data().info.name,
-                //   number: itemSnapshot.docs.length,
-                //   description: formDoc.data().info.description,
-                //   category: formDoc.data().info.category,
-                // });
-              }
+            for (const response of responseSnapshot.docs) {
+              console.log(response.data().userId);
             }
           }
         }
-        setCards(cardsData);
       } catch (e) {
         console.error("Error at card container: ", e);
       }
     };
-    if (uid) {
-      fetchCards();
-    }
-  }, [uid]);
+    fetchCards();
+  }, []);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <FlatList

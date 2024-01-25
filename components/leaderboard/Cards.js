@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { icons, COLORS, FONT } from "../../constants";
 const Cards = ({ name, score, index }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key={name}>
       {index === 0 && <Image source={icons.firsPlace} style={styles.img} />}
       {index === 1 && <Image source={icons.secondPlace} style={styles.img} />}
       {index === 2 && <Image source={icons.thirdPlace} style={styles.img} />}

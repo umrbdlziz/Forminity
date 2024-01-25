@@ -23,8 +23,8 @@ export const RenderResponse = ({ item, responseData }) => {
         <Text style={styles.questionTitle}>{item.title}</Text>
         {responseData.map((response, index) => (
           <Text key={index} style={styles.shortAnswer}>
-            {response.responder}
-            {" : "}
+            {index + 1}
+            {". "}
             {response.answer[item.id]}
           </Text>
         ))}

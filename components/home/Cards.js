@@ -13,7 +13,7 @@ import {
 import { FONT, COLORS } from "../../constants";
 import globalStyle from "../../App/general.style";
 
-const Cards = ({ userid, id, title, desc, qNum, category }) => {
+const Cards = ({ userid, id, title, desc, category }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -32,9 +32,6 @@ const Cards = ({ userid, id, title, desc, qNum, category }) => {
       <Text style={styles.titleContainer}>{title}</Text>
       <Text style={styles.descContainer}>{desc}</Text>
       <View style={styles.secondContainer}>
-        <View style={styles.qNumContainer}>
-          <Text style={styles.qNumText}>{qNum}Q</Text>
-        </View>
         <View style={styles.categoryContainer}>
           <Text style={styles.categoryText}>{category}</Text>
         </View>

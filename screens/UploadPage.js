@@ -86,7 +86,7 @@ const UploadPage = () => {
           backgroundColor: COLORS.tertiary,
         }}
       />
-      <FlatList
+      {/* <FlatList
         ListHeaderComponent={
           <TouchableOpacity style={styles.createBtn} onPress={toggleOverlay}>
             <Image source={icons.createNew} />
@@ -97,7 +97,7 @@ const UploadPage = () => {
         keyExtractor={(item) => item.formID}
         renderItem={({ item }) => <CreatedCard item={item} />}
         contentContainerStyle={styles.card}
-      />
+      /> */}
       <Overlay
         isVisible={visible}
         onBackdropPress={toggleOverlay}

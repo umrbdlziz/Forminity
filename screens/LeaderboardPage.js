@@ -1,31 +1,34 @@
-import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 
 import { Header, Cards } from "../components";
 import { COLORS } from "../constants";
 
+import { useSelector } from "react-redux";
+
 const LeaderboardPage = () => {
-  const rankingList = [
-    { name: "John Smith", score: 1000 },
-    { name: "Jane", score: 900 },
-    { name: "Jack", score: 800 },
-    { name: "Jill", score: 700 },
-    { name: "James", score: 600 },
-    { name: "Jenny", score: 500 },
-    { name: "Jasper", score: 400 },
-    { name: "Jade", score: 300 },
-    { name: "Jasmine", score: 200 },
-    { name: "Jared", score: 100 },
-    { name: "Jacop", score: 100 },
-    { name: "Jackling", score: 50 },
-  ];
+  const users = useSelector((state) => state.users.value);
+  /*users: {
+    desasiswa:
+    email:
+    fullname:
+    matric:
+    passwaord:
+    point:
+    school:
+    username:
+  } */
+
   return (
     <View style={styles.container}>
       <Header headerText={"LEADERBOARD"} />
       <FlatList
-        data={rankingList}
+        data={users}
         renderItem={({ item, index }) => (
-          <Cards name={item.name} score={item.score} index={index} />
+          <Cards
+            name={item.data.username}
+            score={item.data.point}
+            index={index}
+          />
         )}
         keyExtractor={(item) => item.name}
         contentContainerStyle={styles.flatlist}

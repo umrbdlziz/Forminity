@@ -14,7 +14,7 @@ import {
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
 import { FIREBASE_DB } from "./firebase/config";
-import { RenderResponse } from "./common/RenderResponse";
+import { RenderResponse } from "./common/renderResponse";
 import Cards from "./leaderboard/Cards";
 
 export {

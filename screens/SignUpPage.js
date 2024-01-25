@@ -76,6 +76,7 @@ const SignUpPage = () => {
         school: school,
         desasiswa: desasiswa,
         password: password,
+        point: 0,
       });
     } catch (error) {
       console.log(error);
