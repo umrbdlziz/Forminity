@@ -18,10 +18,12 @@ import { FIREBASE_DB } from "../../firebase/config";
 import { doc, collection, getDocs } from "firebase/firestore/lite";
 
 const History = () => {
-  const [cards, setCards] = useState([]);
+  const [responseID, setResponseID] = useState([]);
+
   const currentUserId = useSelector((state) => state.uid.value);
+  const allForm = useSelector((state) => state.allForm.value);
   const allUsers = useSelector((state) => state.users.value);
-  let temp = "";
+  console.log(allForm[0].formCategory);
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -30,11 +32,15 @@ const History = () => {
             const responseSnapshot = await getDocs(
               collection(FIREBASE_DB, `users/${userDoc.id}/response`)
             );
+
+            const responseIds = [];
             console.log(responseSnapshot.docs);
             for (const response of responseSnapshot.docs) {
-              console.log(response.data().userId);
-              temp = response;
+              responseIds.push(response.data());
             }
+
+            setResponseID(responseIds);
+            console.log(responseID);
           }
         }
       } catch (e) {
@@ -42,16 +48,31 @@ const History = () => {
       }
     };
     fetchCards();
-  }, []);
+  }, [currentUserId, allUsers]);
   return (
     <View style={styles.container}>
-      <Text>{temp}</Text>
+      <FlatList
+        data={responseID}
+        renderItem={({ item, index }) => (
+          <View>
+            <Text style={styles.txInfo}>{item.userId}</Text>
+            <Text style={styles.txInfo}>{item.formId}</Text>
+          </View>
+        )}
+        contentContainerStyle={styles.container}
+      />
     </View>
   );
 };
 export default History;
 
 const styles = StyleSheet.create({
+  txInfo: {
+    fontSize: 13,
+    fontFamily: FONT.subtitle,
+    fontWeight: "700",
+    color: COLORS.primaryText,
+  },
   container: {
     backgroundColor: COLORS.background,
 

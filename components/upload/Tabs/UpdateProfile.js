@@ -108,8 +108,6 @@ const UpdateProfile = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.infoContainer}>
-        <View style={styles.infoImg}></View>
-
         <View style={styles.pointContainer}>
           <View style={styles.pointContainer2}>
             <View style={styles.pointBox}>

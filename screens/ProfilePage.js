@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import { Header, UpdateProfile, History, Feedback } from "../components";
+import { Header, UpdateProfile, History } from "../components";
 import { COLORS, FONT } from "../constants";
 
 const ProfilePage = () => {
@@ -24,7 +24,6 @@ const ProfilePage = () => {
       >
         <Tab.Screen name="Update Profile" component={UpdateProfile} />
         <Tab.Screen name="History" component={History} />
-        <Tab.Screen name="Feedback" component={Feedback} />
       </Tab.Navigator>
     </View>
   );

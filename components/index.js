@@ -9,7 +9,6 @@ import {
   Preview,
   UpdateProfile,
   History,
-  Feedback,
 } from "./upload/Tabs";
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
@@ -33,5 +32,4 @@ export {
   Cards,
   UpdateProfile,
   History,
-  Feedback,
 };
