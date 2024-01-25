@@ -25,27 +25,27 @@ const FillFormPage = () => {
   const { control, handleSubmit } = useForm({});
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const fetchForms = async () => {
-      const querySnapshot = await getDocs(
-        collection(
-          FIREBASE_DB,
-          `users/${forms.userid}/form/${forms.formId}/item`
-        )
-      );
-      querySnapshot.forEach((doc) => {
-        allQuestion.push({
-          id: doc.id,
-          type: doc.data().type,
-          title: doc.data().title,
+  // useEffect(() => {
+  //   const fetchForms = async () => {
+  //     const querySnapshot = await getDocs(
+  //       collection(
+  //         FIREBASE_DB,
+  //         `users/${forms.userid}/form/${forms.formId}/item`
+  //       )
+  //     );
+  //     querySnapshot.forEach((doc) => {
+  //       allQuestion.push({
+  //         id: doc.id,
+  //         type: doc.data().type,
+  //         title: doc.data().title,
 
-          options: doc.data().type !== "shortAnswer" ? doc.data().options : {},
-        });
-      });
-      setQuestion(allQuestion);
-    };
-    fetchForms();
-  }, []);
+  //         options: doc.data().type !== "shortAnswer" ? doc.data().options : {},
+  //       });
+  //     });
+  //     setQuestion(allQuestion);
+  //   };
+  //   fetchForms();
+  // }, []);
 
   const onSubmit = async (data) => {
     try {

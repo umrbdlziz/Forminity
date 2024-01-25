@@ -3,7 +3,14 @@ import Header from "./home/Header";
 import SearchBarContainer from "./home/SearchBarContainer";
 import CategoryTabContainer from "./home/CategoryTabContainer";
 import CardContainer from "./home/CardContainer";
-import { BuilderQuestion, InputCreator, Preview } from "./upload/Tabs";
+import {
+  BuilderQuestion,
+  InputCreator,
+  Preview,
+  UpdateProfile,
+  History,
+  Feedback,
+} from "./upload/Tabs";
 import DisplayCard from "./upload/Cards/DisplayCard";
 import CreatedCard from "./upload/Cards/CreatedCard";
 import { FIREBASE_DB } from "./firebase/config";
@@ -24,4 +31,7 @@ export {
   RenderResponse,
   FIREBASE_DB,
   Cards,
+  UpdateProfile,
+  History,
+  Feedback,
 };

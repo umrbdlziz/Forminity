@@ -36,32 +36,32 @@ const UploadPage = () => {
   let temp = 0;
 
   const uid = useSelector((state) => state.uid.value);
-  useEffect(() => {
-    const fetchResponses = async () => {
-      const formsSnapshot = await getDocs(
-        collection(FIREBASE_DB, `users/${uid}/form`)
-      );
-      const cardsData = [];
-      setTotalForm(formsSnapshot.size);
-      for (const formDoc of formsSnapshot.docs) {
-        const formId = formDoc.id;
-        const responsesSnapshot = await getDocs(
-          collection(FIREBASE_DB, `users/${uid}/form/${formId}/response`)
-        );
-        cardsData.push({
-          formID: formId,
-          title: formDoc.data().info.name,
-          number: responsesSnapshot.size,
-          desc: formDoc.data().info.description,
-        });
+  // useEffect(() => {
+  //   const fetchResponses = async () => {
+  //     const formsSnapshot = await getDocs(
+  //       collection(FIREBASE_DB, `users/${uid}/form`)
+  //     );
+  //     const cardsData = [];
+  //     setTotalForm(formsSnapshot.size);
+  //     for (const formDoc of formsSnapshot.docs) {
+  //       const formId = formDoc.id;
+  //       const responsesSnapshot = await getDocs(
+  //         collection(FIREBASE_DB, `users/${uid}/form/${formId}/response`)
+  //       );
+  //       cardsData.push({
+  //         formID: formId,
+  //         title: formDoc.data().info.name,
+  //         number: responsesSnapshot.size,
+  //         desc: formDoc.data().info.description,
+  //       });
 
-        temp += responsesSnapshot.size;
-      }
-      setCards(cardsData);
-      setTotalResponses(temp);
-    };
-    fetchResponses();
-  }, [cards]);
+  //       temp += responsesSnapshot.size;
+  //     }
+  //     setCards(cardsData);
+  //     setTotalResponses(temp);
+  //   };
+  //   fetchResponses();
+  // }, [cards]);
   return (
     <View style={styles.container}>
       <Header headerText={"UPLOAD"} />
