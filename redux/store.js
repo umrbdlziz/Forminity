@@ -4,6 +4,7 @@ import formReducer from "./formSlice";
 import displayReducer from "./displaySlice";
 import uidReducer from "./uidSlice";
 import usersReducer from "./usersSlice";
+import allFormReducer from "./allFormSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     display: displayReducer,
     uid: uidReducer,
     users: usersReducer,
+    allForm: allFormReducer,
   },
 });
 

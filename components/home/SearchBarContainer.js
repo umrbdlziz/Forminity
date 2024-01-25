@@ -4,14 +4,14 @@ import { View, TextInput, StyleSheet, Image } from "react-native";
 
 import { COLORS, FONT, icons } from "../../constants";
 
-const SearchBarContainer = () => {
+const SearchBarContainer = ({ setSearchTerm }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.searchBar}>
       <View style={styles.textInput}>
         <TextInput
           style={styles.text}
-          onChangeText={() => navigation.navigate("LoginPage")}
+          onChangeText={(text) => setSearchTerm(text)}
           placeholder="What are you looking for?"
         />
       </View>

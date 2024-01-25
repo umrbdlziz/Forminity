@@ -1,4 +1,5 @@
 import { SafeAreaView, StyleSheet } from "react-native";
+import { useState } from "react";
 
 import {
   CardContainer,
@@ -6,13 +7,15 @@ import {
   Header,
   SearchBarContainer,
 } from "../components";
+
 const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <SafeAreaView style={styles.container}>
       <Header headerText={"FORMINITY"} />
-      <SearchBarContainer />
-      <CategoryTabContainer />
-      <CardContainer />
+      <SearchBarContainer setSearchTerm={setSearchTerm} />
+      {/* <CategoryTabContainer /> */}
+      <CardContainer searchTerm={searchTerm} />
     </SafeAreaView>
   );
 };

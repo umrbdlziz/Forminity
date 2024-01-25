@@ -3,12 +3,13 @@ import { StyleSheet, FlatList } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 import { SET_USERS } from "../../redux/usersSlice";
+import { SET_ALLFORM } from "../../redux/allFormSlice";
 
 import Cards from "../../components/home/Cards";
 import { FIREBASE_DB } from "../firebase/config";
 import { collection, getDocs } from "firebase/firestore/lite";
 
-const CardContainer = () => {
+const CardContainer = ({ searchTerm }) => {
   const [cards, setCards] = useState([]);
   const uid = useSelector((state) => state.uid.value);
   const dispatch = useDispatch();
@@ -23,11 +24,20 @@ const CardContainer = () => {
 
         for (const userDoc of userSnapshot.docs) {
           dispatch(SET_USERS({ id: userDoc.id, data: userDoc.data() }));
-          if (userDoc.id !== currentUserId) {
-            const formSnapshot = await getDocs(
-              collection(FIREBASE_DB, `users/${userDoc.id}/form`)
+
+          const formSnapshot = await getDocs(
+            collection(FIREBASE_DB, `users/${userDoc.id}/form`)
+          );
+          for (const formDoc of formSnapshot.docs) {
+            dispatch(
+              SET_ALLFORM({
+                id: formDoc.id,
+                name: formDoc.data().info.name,
+                description: formDoc.data().info.description,
+                category: formDoc.data().info.category,
+              })
             );
-            for (const formDoc of formSnapshot.docs) {
+            if (userDoc.id !== currentUserId) {
               cardsData.push({
                 userid: userDoc.id,
                 id: formDoc.id,
@@ -47,9 +57,13 @@ const CardContainer = () => {
       fetchCards();
     }
   }, [uid]);
+
+  const filteredForms = cards.filter((form) =>
+    form.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <FlatList
-      data={cards}
+      data={filteredForms}
       renderItem={({ item, index }) => (
         <Cards
           userid={item.userid}
