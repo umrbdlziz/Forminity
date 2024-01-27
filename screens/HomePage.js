@@ -14,7 +14,6 @@ const HomePage = () => {
     <SafeAreaView style={styles.container}>
       <Header headerText={"FORMINITY"} />
       <SearchBarContainer setSearchTerm={setSearchTerm} />
-      {/* <CategoryTabContainer /> */}
       <CardContainer searchTerm={searchTerm} />
     </SafeAreaView>
   );

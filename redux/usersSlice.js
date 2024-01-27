@@ -12,8 +12,11 @@ const usersSlice = createSlice({
         data: action.payload.data,
       });
     },
+    CLEAR_USERS: (state) => {
+      state.value = [];
+    },
   },
 });
 
-export const { SET_USERS } = usersSlice.actions;
+export const { SET_USERS, CLEAR_USERS } = usersSlice.actions;
 export default usersSlice.reducer;

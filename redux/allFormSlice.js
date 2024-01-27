@@ -14,8 +14,11 @@ const allFormSlice = createSlice({
         formCategory: action.payload.category,
       });
     },
+    CLEAR_ALLFORM: (state) => {
+      state.value = [];
+    },
   },
 });
 
-export const { SET_ALLFORM } = allFormSlice.actions;
+export const { SET_ALLFORM, CLEAR_ALLFORM } = allFormSlice.actions;
 export default allFormSlice.reducer;

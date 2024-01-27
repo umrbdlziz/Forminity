@@ -1,65 +1,69 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { useState, useEffect, useCallback } from "react";
+import { View, Text, StyleSheet, FlatList, RefreshControl } from "react-native";
 
 import { useSelector } from "react-redux";
-
-import globalStyle from "../../../App/general.style";
 
 import { COLORS, FONT, icons } from "../../../constants";
 import { FIREBASE_DB } from "../../firebase/config";
 import { doc, collection, getDocs } from "firebase/firestore/lite";
+import { set } from "react-hook-form";
 
 const History = () => {
   const [responseID, setResponseID] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const currentUserId = useSelector((state) => state.uid.value);
   const allForm = useSelector((state) => state.allForm.value);
   const allUsers = useSelector((state) => state.users.value);
 
-  useEffect(() => {
+  const fetchCards = async () => {
     const responseIds = [];
-    const fetchCards = async () => {
-      try {
-        for (const userDoc of allUsers) {
-          if (userDoc.id == currentUserId) {
-            const responseSnapshot = await getDocs(
-              collection(FIREBASE_DB, `users/${userDoc.id}/response`)
-            );
+    setRefreshing(true);
 
-            for (const response of responseSnapshot.docs) {
-              allForm.map((form) => {
-                form.formId == response.data().formId
-                  ? responseIds.push({
-                      userId: response.data().userId,
-                      timestamp: `${response
-                        .data()
-                        .timestamp.toDate()
-                        .getFullYear()}-${
-                        response.data().timestamp.toDate().getMonth() + 1
-                      }-${response.data().timestamp.toDate().getDate()}`,
-                      formId: form.formId,
-                      formName: form.formName,
-                      formDescription: form.formDescription,
-                      formCategory: form.formCategory,
-                    })
-                  : null;
-              });
-            }
+    try {
+      for (const userDoc of allUsers) {
+        if (userDoc.id == currentUserId) {
+          const responseSnapshot = await getDocs(
+            collection(FIREBASE_DB, `users/${userDoc.id}/response`)
+          );
+
+          for (const response of responseSnapshot.docs) {
+            allForm.map((form) => {
+              if (form.formId == response.data().formId) {
+                const timestamp = response.data().timestamp;
+
+                if (timestamp) {
+                  responseIds.push({
+                    userId: response.data().userId,
+                    timestamp: `${timestamp.toDate().getFullYear()}-${
+                      timestamp.toDate().getMonth() + 1
+                    }-${timestamp.toDate().getDate()}`,
+                    formId: form.formId,
+                    formName: form.formName,
+                    formDescription: form.formDescription,
+                    formCategory: form.formCategory,
+                  });
+                } else {
+                  console.warn(
+                    "Timestamp is undefined for formId:",
+                    form.formId
+                  );
+                }
+              }
+            });
           }
+          break;
         }
-      } catch (e) {
-        console.error("Error at card container: ", e);
       }
-      setResponseID(responseIds);
-    };
+    } catch (e) {
+      console.error("Error at card container: ", e);
+    }
+
+    setResponseID(responseIds);
+    setRefreshing(false);
+  };
+
+  useEffect(() => {
     fetchCards();
   }, [currentUserId, allUsers]);
 
@@ -67,13 +71,16 @@ const History = () => {
     <View style={styles.container}>
       <FlatList
         data={responseID}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <View>
             <Text style={styles.txInfo}>{item.formName}</Text>
             <Text style={styles.txInfo}>{item.timestamp}</Text>
           </View>
         )}
         contentContainerStyle={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={fetchCards} />
+        }
       />
     </View>
   );

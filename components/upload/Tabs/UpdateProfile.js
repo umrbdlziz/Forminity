@@ -8,12 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useNavigation } from "@react-navigation/native";
 import globalStyle from "../../../App/general.style";
 
 import { COLORS, FONT, icons } from "../../../constants";
-import { Header } from "../../home/Header";
 
 import { updatePassword } from "firebase/auth";
 
@@ -32,26 +29,8 @@ const UpdateProfile = () => {
   const [desasiswa, setDesasiswa] = useState("");
 
   const uid = useSelector((state) => state.uid.value);
-  const [userData, setUserData] = useState(null);
-  const navigation = useNavigation();
+  const userData = useSelector((state) => state.userData);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userDocRef = doc(FIREBASE_DB, "users", uid);
-        const userDocSnapshot = await getDoc(userDocRef);
-        if (userDocSnapshot.exists()) {
-          const userData = userDocSnapshot.data();
-          setUserData(userData);
-        } else {
-          console.log("User document not found");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchUserData();
-  }, [uid]);
   const logout = async () => {
     try {
       await FIREBASE_AUTH.signOut();
@@ -59,6 +38,7 @@ const UpdateProfile = () => {
       console.error("Error logging out:", error);
     }
   };
+
   const update = async () => {
     try {
       // Check if the password and confirmation password match
@@ -111,13 +91,13 @@ const UpdateProfile = () => {
         <View style={styles.pointContainer}>
           <View style={styles.pointContainer2}>
             <View style={styles.pointBox}>
-              <Text style={styles.txInfo}>100</Text>
+              <Text style={styles.txInfo}>{userData.point}</Text>
             </View>
             <Text style={styles.txInfo}>Point</Text>
           </View>
           <View style={styles.pointContainer2}>
             <View style={styles.pointBox}>
-              <Text style={styles.txInfo}>2</Text>
+              <Text style={styles.txInfo}>{userData.mycsd}</Text>
             </View>
             <Text style={styles.txInfo}>MyCSD</Text>
           </View>

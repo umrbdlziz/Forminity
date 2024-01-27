@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontFamily: FONT.text,
     color: COLORS.primaryText,
+    fontSize: 16,
   },
   numRanking: {
     marginHorizontal: 5,
