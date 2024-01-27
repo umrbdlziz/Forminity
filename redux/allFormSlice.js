@@ -8,6 +8,8 @@ const allFormSlice = createSlice({
   reducers: {
     SET_ALLFORM: (state, action) => {
       state.value.push({
+        userId: action.payload.userId,
+        userName: action.payload.userName,
         formId: action.payload.id,
         formName: action.payload.name,
         formDescription: action.payload.description,

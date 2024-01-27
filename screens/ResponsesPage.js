@@ -17,7 +17,7 @@ const ResponsesPage = ({ route }) => {
   useEffect(() => {
     const fetchResponses = async () => {
       const responseSnapshot = await getDocs(
-        collection(FIREBASE_DB, `users/${uid}/form/${formId}/response`)
+        collection(FIREBASE_DB, `users/${uid}/form/${formId}/respondent`)
       );
       for (const responseDoc of responseSnapshot.docs) {
         allResponse.push({
@@ -47,14 +47,16 @@ const ResponsesPage = ({ route }) => {
   return (
     responseData && (
       <View>
-        <Header headerText={responseData.length + " responses"} />
         <FlatList
           data={question}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <RenderResponse item={item} responseData={responseData} />
           )}
-          contentContainerStyle={{ paddingBottom: 130 }}
+          contentContainerStyle={{ paddingBottom: 30 }}
+          ListHeaderComponent={
+            <Header headerText={responseData.length + " respondent"} />
+          }
         />
       </View>
     )

@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { COLORS, FONT, icons } from "../../../constants";
 import { FIREBASE_DB } from "../../firebase/config";
 import { doc, collection, getDocs } from "firebase/firestore/lite";
-import { set } from "react-hook-form";
 
 const History = () => {
   const [responseID, setResponseID] = useState([]);
@@ -34,7 +33,7 @@ const History = () => {
 
                 if (timestamp) {
                   responseIds.push({
-                    userId: response.data().userId,
+                    userName: form.userName,
                     timestamp: `${timestamp.toDate().getFullYear()}-${
                       timestamp.toDate().getMonth() + 1
                     }-${timestamp.toDate().getDate()}`,
@@ -73,11 +72,14 @@ const History = () => {
         data={responseID}
         renderItem={({ item }) => (
           <View>
-            <Text style={styles.txInfo}>{item.formName}</Text>
-            <Text style={styles.txInfo}>{item.timestamp}</Text>
+            <Text style={styles.mainText}>{item.formName}</Text>
+            <View style={styles.dateContainer}>
+              <Text style={styles.subText}>by {item.userName}</Text>
+              <Text style={styles.dateText}>{item.timestamp}</Text>
+            </View>
           </View>
         )}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.scrollview}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={fetchCards} />
         }
@@ -88,35 +90,34 @@ const History = () => {
 export default History;
 
 const styles = StyleSheet.create({
-  txInfo: {
-    fontSize: 13,
-    fontFamily: FONT.subtitle,
-    fontWeight: "700",
-    color: COLORS.primaryText,
-  },
   container: {
     backgroundColor: COLORS.background,
-
-    display: "flex",
-    position: "relative",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 20,
-  },
-  infoContainer: {
-    backgroundColor: COLORS.primary,
-    width: 330,
-    borderRadius: 20,
-    display: "inline-flex",
-    flexDirection: "column",
-    gap: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    position: "relative",
   },
   scrollview: {
     gap: 20,
-    alignItems: "center",
     paddingVertical: 20,
+    paddingHorizontal: 20,
+  },
+  mainText: {
+    fontFamily: FONT.h2,
+    fontSize: 16,
+    color: COLORS.primaryText,
+  },
+  subText: {
+    fontFamily: FONT.text,
+    fontSize: 12,
+    color: COLORS.secondaryTextIcon,
+  },
+  dateText: {
+    fontFamily: FONT.h2,
+    fontSize: 14,
+    color: COLORS.secondaryTextIcon,
+  },
+  dateContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 10,
   },
 });

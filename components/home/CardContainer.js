@@ -59,6 +59,8 @@ const CardContainer = ({ searchTerm }) => {
         for (const formDoc of formSnapshot.docs) {
           dispatch(
             SET_ALLFORM({
+              userId: userDoc.id,
+              userName: userDoc.data().username,
               id: formDoc.id,
               name: formDoc.data().info.name,
               description: formDoc.data().info.description,

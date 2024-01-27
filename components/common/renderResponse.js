@@ -2,6 +2,7 @@ import { Text, StyleSheet, View } from "react-native";
 
 import { COLORS, FONT } from "../../constants";
 import MyGraph from "../graph/MyGraph";
+import MyGraph2 from "../graph/MyGraph2";
 
 //responseData id, answer, responder for answer
 //item id, type, title, options for question
@@ -57,13 +58,14 @@ export const RenderResponse = ({ item, responseData }) => {
             }, 0)
           );
         }, 0),
-        color: colors[index % colors.length],
+        frontColor: colors[index % colors.length],
       };
     });
     return (
       <View style={styles.constainer}>
         <Text style={styles.questionTitle}>{item.title}</Text>
-        <MyGraph optionCounts={optionCounts} options={item.options} />
+        {/* <MyGraph optionCounts={optionCounts} options={item.options} /> */}
+        <MyGraph2 optionCounts={optionCounts} options={item.options} />
       </View>
     );
   }
@@ -80,7 +82,9 @@ const styles = StyleSheet.create({
   },
   questionTitle: {
     fontFamily: FONT.h2,
-    fontSize: 16,
+    fontSize: 14,
+    letterSpacing: 0.4,
+    lineHeight: 18,
   },
   shortAnswer: {
     fontFamily: FONT.text,

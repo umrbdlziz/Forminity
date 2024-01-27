@@ -134,10 +134,11 @@ const UploadPage = () => {
         <Text style={styles.inputName}>Category:</Text>
         <SelectDropdown
           data={[
-            "Academic",
+            "Education",
+            "Technology",
+            "Psychology",
             "Social",
             "Health",
-            "Psychology",
             "Sport",
             "Others",
           ]}
