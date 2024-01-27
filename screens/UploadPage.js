@@ -8,9 +8,9 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView,
   TextInput,
   FlatList,
+  RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ import { setName, setDescription, addCategory } from "../redux/formSlice";
 import { Header, DisplayCard, CreatedCard, FIREBASE_DB } from "../components";
 import { COLORS, FONT, icons } from "../constants";
 
-import { doc, getDoc, collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs } from "firebase/firestore/lite";
 
 const UploadPage = () => {
   const navigation = useNavigation();
@@ -27,6 +27,7 @@ const UploadPage = () => {
 
   const [visible, setVisible] = useState(false);
   const [totalForm, setTotalForm] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -36,35 +37,40 @@ const UploadPage = () => {
   let temp = 0;
 
   const uid = useSelector((state) => state.uid.value);
-  useEffect(() => {
-    const fetchResponses = async () => {
-      const formsSnapshot = await getDocs(
-        collection(FIREBASE_DB, `users/${uid}/form`)
-      );
-      const cardsData = [];
-      setTotalForm(formsSnapshot.size);
-      for (const formDoc of formsSnapshot.docs) {
-        const formId = formDoc.id;
-        const responsesSnapshot = await getDocs(
-          collection(FIREBASE_DB, `users/${uid}/form/${formId}/response`)
-        );
-        cardsData.push({
-          formID: formId,
-          title: formDoc.data().info.name,
-          number: responsesSnapshot.size,
-          desc: formDoc.data().info.description,
-        });
 
-        temp += responsesSnapshot.size;
-      }
-      setCards(cardsData);
-      setTotalResponses(temp);
-    };
+  const fetchResponses = async () => {
+    setRefreshing(true);
+    const formsSnapshot = await getDocs(
+      collection(FIREBASE_DB, `users/${uid}/form`)
+    );
+    const cardsData = [];
+    setTotalForm(formsSnapshot.size);
+    for (const formDoc of formsSnapshot.docs) {
+      const formId = formDoc.id;
+      const responsesSnapshot = await getDocs(
+        collection(FIREBASE_DB, `users/${uid}/form/${formId}/respondent`)
+      );
+      cardsData.push({
+        formID: formId,
+        title: formDoc.data().info.name,
+        number: responsesSnapshot.size,
+        desc: formDoc.data().info.description,
+      });
+
+      temp += responsesSnapshot.size;
+    }
+    setCards(cardsData);
+    setTotalResponses(temp);
+    setRefreshing(false);
+  };
+
+  useEffect(() => {
     fetchResponses();
-  }, [cards]);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Header headerText={"UPLOAD"} />
+      <Header headerText={"CREATION"} />
       <View style={styles.dataDisplay}>
         <DisplayCard
           title="Total Submission"
@@ -97,6 +103,9 @@ const UploadPage = () => {
         keyExtractor={(item) => item.formID}
         renderItem={({ item }) => <CreatedCard item={item} />}
         contentContainerStyle={styles.card}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={fetchResponses} />
+        }
       />
       <Overlay
         isVisible={visible}

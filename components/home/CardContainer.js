@@ -28,6 +28,7 @@ const CardContainer = ({ searchTerm }) => {
   const dispatch = useDispatch();
 
   const fetchCards = async () => {
+    setRefreshing(true);
     const currentUserId = uid; // Replace this with your current user's ID
     dispatch(CLEAR_ALLFORM());
     dispatch(CLEAR_USERS());
