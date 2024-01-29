@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { StyleSheet, FlatList, RefreshControl } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { dynamicLinks } from "../firebase/config";
 
 import { useSelector, useDispatch } from "react-redux";
 import { SET_USERS, CLEAR_USERS } from "../../redux/usersSlice";
@@ -26,6 +28,32 @@ const CardContainer = ({ searchTerm }) => {
   const [refreshing, setRefreshing] = useState(false);
   const uid = useSelector((state) => state.uid.value);
   const dispatch = useDispatch();
+
+  // const HandleDeepLinking = () => {
+  //   const navigate = useNavigation();
+
+  //   const handleDynamicLink = (link) => {
+  //     const formId = link.url.split("=").pop();
+  //     console.log("Form ID: ", formId);
+  //     navigate.navigate("FillFormPage");
+  //   };
+
+  //   useEffect(() => {
+  //     const unsubscribe = dynamicLinks().onLink((link) => {
+  //       handleDynamicLink(link);
+  //     });
+
+  //     dynamicLinks()
+  //       .getInitialLink()
+  //       .then((link) => {
+  //         if (link) {
+  //           handleDynamicLink(link);
+  //         }
+  //       });
+
+  //     return () => unsubscribe();
+  //   }, []);
+  // };
 
   const fetchCards = async () => {
     setRefreshing(true);
@@ -94,23 +122,25 @@ const CardContainer = ({ searchTerm }) => {
     form.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
-    <FlatList
-      data={filteredForms}
-      renderItem={({ item, index }) => (
-        <Cards
-          userid={item.userid}
-          id={item.id}
-          title={item.name}
-          desc={item.description}
-          category={item.category}
-        />
-      )}
-      style={styles.container}
-      contentContainerStyle={styles.scrollview}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={fetchCards} />
-      }
-    />
+    <>
+      <FlatList
+        data={filteredForms}
+        renderItem={({ item, index }) => (
+          <Cards
+            userid={item.userid}
+            id={item.id}
+            title={item.name}
+            desc={item.description}
+            category={item.category}
+          />
+        )}
+        style={styles.container}
+        contentContainerStyle={styles.scrollview}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={fetchCards} />
+        }
+      />
+    </>
   );
 };
 export default CardContainer;

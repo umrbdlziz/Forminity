@@ -1,12 +1,11 @@
 import "expo-dev-client";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
-import { Text } from "react-native";
 
 import {
   SplashScreen,
@@ -17,6 +16,7 @@ import {
   ResponsesPage,
   SignUpPage,
 } from "../screens";
+import { HandleDeepLinking } from "../components";
 import BottomTabsRoot from "../components/common/BottomTabsRoot";
 import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "../components/firebase/config";
@@ -25,6 +25,7 @@ import { User } from "firebase/auth";
 import { dynamicLinks } from "../components/firebase/config";
 
 const Stack = createNativeStackNavigator();
+
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
   const [user, setUser] = useState(null);
@@ -39,9 +40,31 @@ const App = () => {
     "Inter-Light": require("../assets/fonts/Inter-Light.ttf"),
   });
 
-  const handleDynamicLink = (link) => {
-    alert(JSON.stringify(link.url));
-  };
+  // const HandleDeepLinking = () => {
+  //   const navigate = useNavigation();
+
+  //   const handleDynamicLink = (link) => {
+  //     const formId = link.url.split("=").pop();
+  //     console.log("Form ID: ", formId);
+  //     navigate.navigate("FillFormPage");
+  //   };
+
+  //   useEffect(() => {
+  //     const unsubscribe = dynamicLinks().onLink((link) => {
+  //       handleDynamicLink(link);
+  //     });
+
+  //     dynamicLinks()
+  //       .getInitialLink()
+  //       .then((link) => {
+  //         if (link) {
+  //           handleDynamicLink(link);
+  //         }
+  //       });
+
+  //     return () => unsubscribe();
+  //   }, []);
+  // };
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,12 +76,6 @@ const App = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
-    // When the component is unmounted, remove the listener
-    return () => unsubscribe();
-  }, []);
-
   if (!fontsLoaded && !error) {
     return null;
   }
@@ -67,6 +84,7 @@ const App = () => {
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer>
+          <HandleDeepLinking />
           {hideSplashScreen ? (
             <Stack.Navigator initialRouteName="LoginPage">
               {user ? (

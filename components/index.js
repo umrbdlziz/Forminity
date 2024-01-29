@@ -15,6 +15,7 @@ import CreatedCard from "./upload/Cards/CreatedCard";
 import { FIREBASE_DB } from "./firebase/config";
 import { RenderResponse } from "./common/renderResponse";
 import Cards from "./leaderboard/Cards";
+import HandleDeepLinking from "./common/HandleDeepLinking";
 
 export {
   BottomTabIcon,
@@ -32,4 +33,5 @@ export {
   Cards,
   UpdateProfile,
   History,
+  HandleDeepLinking,
 };
