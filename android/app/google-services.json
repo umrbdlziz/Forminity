@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1033154007968",
+    "project_id": "forminity-4a8dd",
+    "storage_bucket": "forminity-4a8dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033154007968:android:e0ca8499ff6411956fcac5",
+        "android_client_info": {
+          "package_name": "com.fishless.Forminity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgy0Feexyr9T9Ykv20VeVaKbd1ac-FCNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

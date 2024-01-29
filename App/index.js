@@ -1,3 +1,4 @@
+import "expo-dev-client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -5,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
+import { Text } from "react-native";
 
 import {
   SplashScreen,
@@ -20,6 +22,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "../components/firebase/config";
 import { User } from "firebase/auth";
 
+import { dynamicLinks } from "../components/firebase/config";
+
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = useState(false);
@@ -34,6 +38,11 @@ const App = () => {
     "Montserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
     "Inter-Light": require("../assets/fonts/Inter-Light.ttf"),
   });
+
+  const handleDynamicLink = (link) => {
+    alert(JSON.stringify(link.url));
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setHideSplashScreen(true);
@@ -42,6 +51,12 @@ const App = () => {
       console.log("user", user);
       setUser(user);
     });
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
+    // When the component is unmounted, remove the listener
+    return () => unsubscribe();
   }, []);
 
   if (!fontsLoaded && !error) {
@@ -53,10 +68,7 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           {hideSplashScreen ? (
-            <Stack.Navigator
-              initialRouteName="LoginPage"
-              // screenOptions={{ headerShown: false }}
-            >
+            <Stack.Navigator initialRouteName="LoginPage">
               {user ? (
                 <>
                   <Stack.Screen
