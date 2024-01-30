@@ -4,7 +4,7 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import globalStyle from "../App/general.style";
 
-
+//point
 import { Header,PointCard } from "../components";
 import { FONT, COLORS } from "../constants";
 
@@ -15,7 +15,7 @@ const PointPage = () => {
 
   return (
     <View>
-      <Header headerText={"POINT"} />
+      <Header headerText={"POINT"} /> 
 
     <View style={[styles.border, globalStyle.shadow]}>
         <Text style={styles.text}>Points Balance: </Text>
