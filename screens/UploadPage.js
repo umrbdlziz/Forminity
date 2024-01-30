@@ -74,10 +74,10 @@ const UploadPage = () => {
       <Header headerText={"CREATION"} />
       <View style={styles.dataDisplay}>
         <DisplayCard
-          title="Total Submission"
+          title="Total Respondent"
           icon={icons.complete}
           number={totalResponses}
-          desc="All time form submission"
+          desc="All time form respond"
         />
         <DisplayCard
           title="Total Form Created"
