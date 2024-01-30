@@ -14,17 +14,21 @@ const PointCard = ({ point, mycsd }) => {
   const userData = useSelector((state) => state.userData);
 
   const onExchange = async ({ point }) => {
-    try {
-      await updateDoc(doc(FIREBASE_DB, `users`, uid), {
-        point: userData.point - point,
-        mycsd: userData.mycsd + mycsd,
-      });
-      alert(
-        `MyCSD updated: ${point}                  MYCSD point will be credited at the end of the semester in your Campus Online.`
-      );
-      console.log(point);
-    } catch (e) {
-      console.error("Error exchange point: ", e);
+    if (userData.point > point) {
+      try {
+        await updateDoc(doc(FIREBASE_DB, `users`, uid), {
+          point: userData.point - point,
+          mycsd: userData.mycsd + mycsd,
+        });
+        alert(
+          `MyCSD updated: ${point}                  MYCSD point will be credited at the end of the semester in your Campus Online.`
+        );
+        console.log(point);
+      } catch (e) {
+        console.error("Error exchange point: ", e);
+      }
+    } else {
+      alert("Your current point is insufficient");
     }
   };
 

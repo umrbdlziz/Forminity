@@ -108,8 +108,8 @@ const UpdateProfile = () => {
         <View style={styles.infoTx}>
           {userData ? (
             <>
-              <Text style={styles.txInfo}>{userData.email}</Text>
               <Text style={styles.txInfo}>{userData.fullName}</Text>
+              <Text style={styles.txInfo}>{userData.email}</Text>
               <Text style={styles.txInfo}>{userData.matric}</Text>
             </>
           ) : (
