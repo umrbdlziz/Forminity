@@ -16,6 +16,7 @@ import { FIREBASE_DB } from "./firebase/config";
 import { RenderResponse } from "./common/renderResponse";
 import Cards from "./leaderboard/Cards";
 import HandleDeepLinking from "./common/HandleDeepLinking";
+import PointCard from "./Point/Point";
 
 export {
   BottomTabIcon,
@@ -34,4 +35,5 @@ export {
   UpdateProfile,
   History,
   HandleDeepLinking,
+  PointCard,
 };
