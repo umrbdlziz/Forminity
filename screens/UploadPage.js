@@ -140,6 +140,7 @@ const UploadPage = () => {
             "Social",
             "Health",
             "Sport",
+            "Technology",
             "Others",
           ]}
           onSelect={(value) => dispatch(addCategory(value))}

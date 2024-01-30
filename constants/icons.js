@@ -20,6 +20,7 @@ import close from "../assets/icons/close.png";
 import firsPlace from "../assets/icons/firstPlace.png";
 import secondPlace from "../assets/icons/secondPlace.png";
 import thirdPlace from "../assets/icons/thirdPlace.png";
+import profilePicture from "../assets/icons/profilePicture.png";
 
 export default {
   search,
@@ -44,4 +45,5 @@ export default {
   firsPlace,
   secondPlace,
   thirdPlace,
+  profilePicture,
 };

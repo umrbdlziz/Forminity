@@ -9,20 +9,19 @@ import { updateDoc, doc, setDoc } from "firebase/firestore/lite";
 
 import { useSelector } from "react-redux";
 
-const PointCard = ({point, mycsd}) => {
+const PointCard = ({ point, mycsd }) => {
   const uid = useSelector((state) => state.uid.value);
   const userData = useSelector((state) => state.userData);
 
-  const onExchange = async ({point}) => {
+  const onExchange = async ({ point }) => {
     try {
-      await updateDoc(
-        doc(FIREBASE_DB, `users`, uid),
-        {
-          point: userData.point - point,
-          mycsd: userData.mycsd + mycsd,
-        }
+      await updateDoc(doc(FIREBASE_DB, `users`, uid), {
+        point: userData.point - point,
+        mycsd: userData.mycsd + mycsd,
+      });
+      alert(
+        `MyCSD updated: ${point}                  MYCSD point will be credited at the end of the semester in your Campus Online.`
       );
-      alert(`MyCSD updated: ${point}                  MYCSD point will be credited at the end of the semester in your Campus Online.`);
       console.log(point);
     } catch (e) {
       console.error("Error exchange point: ", e);
@@ -30,13 +29,15 @@ const PointCard = ({point, mycsd}) => {
   };
 
   return (
-    <TouchableOpacity style={[styles.pointCard,  globalStyle.shadow]} onPress={() => onExchange({point})}>
-        <Text style={styles.pointText}>MYCSD</Text>
+    <TouchableOpacity
+      style={[styles.pointCard, globalStyle.shadow]}
+      onPress={() => onExchange({ point })}
+    >
+      <Text style={styles.pointText}>MYCSD</Text>
       <Text style={styles.pointDescription}>
         {point} Points converted into {mycsd} MYCSD
       </Text>
     </TouchableOpacity>
-    
   );
 };
 export default PointCard;

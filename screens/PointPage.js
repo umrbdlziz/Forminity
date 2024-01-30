@@ -3,28 +3,25 @@ import { View, Text } from "react-native";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import globalStyle from "../App/general.style";
-
-//point
-import { Header,PointCard } from "../components";
+import { Header, PointCard } from "../components";
 import { FONT, COLORS } from "../constants";
 
 const PointPage = () => {
-  const [refreshing, setRefreshing] = useState(false)
+  const [refreshing, setRefreshing] = useState(false);
   const uid = useSelector((state) => state.uid.value);
   const userData = useSelector((state) => state.userData);
 
   return (
     <View>
-      <Header headerText={"POINT"} /> 
+      <Header headerText={"POINT"} />
 
-    <View style={[styles.border, globalStyle.shadow]}>
+      <View style={[styles.border, globalStyle.shadow]}>
         <Text style={styles.text}>Points Balance: </Text>
         <Text style={styles.pointstyle}>{userData.point}</Text>
-    </View>
-<PointCard point={50} mycsd={1}></PointCard>
-<PointCard point={100} mycsd={2}></PointCard>   
-<PointCard point={150} mycsd={3}></PointCard>   
-
+      </View>
+      <PointCard point={50} mycsd={1}></PointCard>
+      <PointCard point={100} mycsd={2}></PointCard>
+      <PointCard point={150} mycsd={3}></PointCard>
     </View>
   );
 };
@@ -47,11 +44,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     borderRadius: 100,
     padding: 10,
-    display: 'flex',
+    display: "flex",
     flexDirection: "row",
     marginRight: 200,
     marginLeft: 10,
     paddingLeft: 20,
   },
-
 });

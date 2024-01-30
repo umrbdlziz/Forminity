@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Image,
   View,
   Text,
   TextInput,
@@ -89,17 +90,18 @@ const UpdateProfile = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.infoContainer}>
         <View style={styles.pointContainer}>
+          <Image source={icons.profilePicture} style={styles.profilePicture} />
           <View style={styles.pointContainer2}>
             <View style={styles.pointBox}>
+              <Text style={styles.txInfo2}>Point</Text>
               <Text style={styles.txInfo}>{userData.point}</Text>
             </View>
-            <Text style={styles.txInfo}>Point</Text>
           </View>
           <View style={styles.pointContainer2}>
             <View style={styles.pointBox}>
+              <Text style={styles.txInfo2}>MyCSD</Text>
               <Text style={styles.txInfo}>{userData.mycsd}</Text>
             </View>
-            <Text style={styles.txInfo}>MyCSD</Text>
           </View>
         </View>
 
@@ -194,29 +196,25 @@ const UpdateProfile = () => {
 export default UpdateProfile;
 
 const styles = StyleSheet.create({
-  infoImg: {
-    width: 99,
-    height: 99,
-    backgroundColor: COLORS.secondary,
+  profilePicture: {
+    width: 50,
+    height: 50,
   },
   pointContainer: {
     display: "inline-flex",
     flexDirection: "row",
-    gap: 5,
+    gap: 10,
   },
   pointContainer2: {
     alignItems: "center",
-
     display: "inline-flex",
-    flexDirection: "column",
+    flexDirection: "row",
     gap: 5,
   },
   pointBox: {
-    backgroundColor: COLORS.tertiary,
-    borderRadius: 20,
-    width: 50,
     alignItems: "center",
-    paddingVertical: 5,
+    flexDirection: "row",
+    gap: 5,
   },
   infoContainer: {
     alignItems: "center",
@@ -233,7 +231,6 @@ const styles = StyleSheet.create({
   infoTx: {
     flexDirection: "column",
     justifyContent: "center",
-    paddingHorizontal: 10,
     position: "relative",
   },
   txInfo: {
@@ -241,6 +238,17 @@ const styles = StyleSheet.create({
     fontFamily: FONT.subtitle,
     fontWeight: "700",
     color: COLORS.primaryText,
+  },
+  txInfo2: {
+    fontSize: 13,
+    fontFamily: FONT.subtitle,
+    color: COLORS.primaryText,
+  },
+  txPoint: {
+    fontSize: 13,
+    fontFamily: FONT.subtitle,
+    fontWeight: "700",
+    color: COLORS.primary,
   },
 
   container: {
