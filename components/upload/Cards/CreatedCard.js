@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Overlay } from "@rneui/themed";
 
 import { useSelector } from "react-redux";
 
 import { COLORS, FONT, icons } from "../../../constants";
+
 import { doc, deleteDoc } from "firebase/firestore/lite";
 import { FIREBASE_DB } from "../../firebase/config";
 
 const CreatedCard = ({ item }) => {
+  const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   const uid = useSelector((state) => state.uid.value);
 
@@ -21,6 +24,10 @@ const CreatedCard = ({ item }) => {
     }
   };
 
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
   return (
     <View key={item.formID} style={styles.displayCard}>
       <View style={styles.topDisplayCard}>
@@ -28,7 +35,14 @@ const CreatedCard = ({ item }) => {
           {item.title}
         </Text>
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>PUBLISHED</Text>
+          <Text
+            style={styles.badgeText}
+            onPress={() => {
+              setVisible(true);
+            }}
+          >
+            Copy Link
+          </Text>
         </View>
       </View>
 
@@ -50,9 +64,23 @@ const CreatedCard = ({ item }) => {
         <Text style={styles.btnText}>View Submission</Text>
         <Image style={styles.btnImg} source={icons.rightArrow} />
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.deleteBtn} onPress={onDelete}>
         <Text style={styles.deleteBtnText}>Delete</Text>
       </TouchableOpacity>
+      <Overlay
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={styles.overlayContainer}
+      >
+        <TouchableOpacity onPress={toggleOverlay} style={styles.imgContainer}>
+          <Image source={icons.close} style={styles.img} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Survey link</Text>
+        <Text style={styles.desc} selectable={true}>
+          {item.link}
+        </Text>
+      </Overlay>
     </View>
   );
 };
@@ -107,6 +135,7 @@ const styles = StyleSheet.create({
   img: {
     width: 15,
     height: 15,
+    padding: 20,
   },
   desc: {
     height: 60,
@@ -151,5 +180,28 @@ const styles = StyleSheet.create({
     fontFamily: FONT.text,
     fontSize: 14,
     color: COLORS.err,
+  },
+  overlayContainer: {
+    display: "flex",
+    padding: 20,
+  },
+  imgContainer: {
+    display: "flex",
+    alignItems: "flex-end",
+  },
+  img: {
+    width: 15,
+    height: 15,
+  },
+  title: {
+    fontFamily: FONT.h2,
+    fontSize: 18,
+    color: COLORS.primaryText,
+  },
+  desc: {
+    fontFamily: FONT.subtitle,
+    fontSize: 12,
+    color: COLORS.secondaryTextIcon,
+    paddingBottom: 20,
   },
 });

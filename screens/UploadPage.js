@@ -55,6 +55,7 @@ const UploadPage = () => {
         title: formDoc.data().info.name,
         number: responsesSnapshot.size,
         desc: formDoc.data().info.description,
+        link: formDoc.data().link,
       });
 
       temp += responsesSnapshot.size;
