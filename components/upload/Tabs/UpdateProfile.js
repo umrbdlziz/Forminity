@@ -123,7 +123,7 @@ const UpdateProfile = () => {
         <TextInput
           value={username}
           onChangeText={(username) => setUsername(username)}
-          placeholder="Username"
+          placeholder={userData.username}
           placeholderTextColor={COLORS.secondaryTextIcon}
           style={styles.txInput}
         />
@@ -134,7 +134,7 @@ const UpdateProfile = () => {
         <TextInput
           value={school}
           onChangeText={(school) => setSchool(school)}
-          placeholder="School"
+          placeholder={userData.school}
           placeholderTextColor={COLORS.secondaryTextIcon}
           style={styles.txInput}
         />
@@ -145,7 +145,7 @@ const UpdateProfile = () => {
         <TextInput
           value={desasiswa}
           onChangeText={(desasiswa) => setDesasiswa(desasiswa)}
-          placeholder="Desasiswa"
+          placeholder={userData.desasiswa}
           placeholderTextColor={COLORS.secondaryTextIcon}
           style={styles.txInput}
         />

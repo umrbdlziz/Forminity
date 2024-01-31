@@ -22,7 +22,7 @@ const UploadPage2 = () => {
       >
         <Tab.Screen name="Input Creator" component={InputCreator} />
         <Tab.Screen name="Builder" component={BuilderQuestion} />
-        <Tab.Screen name="Priview" component={Preview} />
+        <Tab.Screen name="Preview" component={Preview} />
       </Tab.Navigator>
     </View>
   );
