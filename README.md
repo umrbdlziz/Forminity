@@ -1,11 +1,7 @@
 # Forminity
 a survey app for student
 
-<video width="320" height="240" controls>
-  <source src="https://youtu.be/267WypY3YWM" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
+https://github.com/umrbdlziz/Forminity/assets/117342940/d918e1a6-cd50-4507-91d5-f4bdae70c787
 
 ## Run Locally
 
